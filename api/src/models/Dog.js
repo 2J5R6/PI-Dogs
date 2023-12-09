@@ -27,5 +27,5 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING, // Años de vida como string
       allowNull: false
     }
-  });
+  },{ timestamps: false });
 };
