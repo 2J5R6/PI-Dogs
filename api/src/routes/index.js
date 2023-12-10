@@ -16,13 +16,13 @@ const router = Router();
 //* Breed routes
 
 router.get('/dogs', getAllDogs)
-// router.get('/dogs/:id', getDogById)
-// router.get('/dogs/name/:name', getDogByName)
-// router.post('/dogs', CreateDog)
+router.get('/dogs/:id', getDogById)
+router.get('/dogs/name/:name', getDogByName)
+router.post('/dogs', CreateDog)
 
 // //* Temperament routes
 
-// router.get('/temperaments', getTemperaments)
+router.get('/temperaments', getTemperaments)
 
 
 

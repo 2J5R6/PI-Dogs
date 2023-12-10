@@ -4,12 +4,12 @@ module.exports = (sequelize) => {
   sequelize.define('breeds', {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      autoIncrement: true,
       primaryKey: true
     },
     image: {
       type: DataTypes.JSON, // Imagen como objeto JSON
-      allowNull: false
+      allowNull: true
     },
     name: {
       type: DataTypes.STRING,
@@ -25,7 +25,11 @@ module.exports = (sequelize) => {
     },
     life_span: {
       type: DataTypes.STRING, // Años de vida como string
-      allowNull: false
+      allowNull: false,
+    },
+    description: { // La descripción
+      type: DataTypes.TEXT, 
+      allowNull: true // Hacerlo opcional
     }
   },{ timestamps: false });
 };
