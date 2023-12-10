@@ -26,6 +26,9 @@ async function getDogByName(req, res) {
         }));
 
         const allDogs = [...localDogs, ...apiDogs];
+        if (allDogs.length === 0) {
+            return res.status(404).json({ message: "No dog breeds found with the given name." });
+        }
         res.status(200).json(allDogs);
     } catch (error) {
         console.error(error);

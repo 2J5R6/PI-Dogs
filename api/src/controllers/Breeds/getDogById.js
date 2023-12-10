@@ -15,6 +15,10 @@ async function getDogById(req, res) {
             const apiResponse = await axios.get(`https://api.thedogapi.com/v1/breeds/${id}`, {
                 headers: { 'x-api-key': API_KEY }
             });
+            
+            if (!apiResponse.data) {
+                return res.status(404).json({ message: "No dog breed found with the given ID." });
+            }
 
             const apiDog = apiResponse.data;
             dog = {
@@ -27,7 +31,7 @@ async function getDogById(req, res) {
                 temperaments: apiDog.temperament ? apiDog.temperament.split(', ').map(temp => temp.trim()) : []
             };
         }
-
+       
         res.status(200).json(dog);
     } catch (error) {
         console.error(error);
