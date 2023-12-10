@@ -22,7 +22,7 @@ server.use((req, res, next) => {            //'http://localhost:3000'
   next();
 });
 
-server.use('/', routes);
+server.use('/DOGS', routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
