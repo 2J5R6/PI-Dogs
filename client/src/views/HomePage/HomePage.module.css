@@ -1,0 +1,29 @@
+.homePageContainer {
+  background-image: url('../../assets/images/Pokemon-World.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  padding: 20px;
+}
+
+.contentArea {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.cardsContainer {
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Estilos para el componente Filters */
+/* Puedes ajustar estos estilos según tus preferencias */
+.filtersContainer {
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+}

@@ -1,0 +1,34 @@
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+  
+  .pageButton {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #FFCB05; /* Color amarillo de Pikachu */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pageButton:hover {
+    background-color: #3D7DCA; /* Color azul Pokémon */
+  }
+  
+  .pageButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pageNumber {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  

@@ -1,0 +1,36 @@
+.landingContainer {
+  background-image: url('../../assets/images/Pokémon-Gotta.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 35rem;
+}
+
+.exploreButton {
+  padding: 10px 20px;
+  background-color: #ffcb05; /* Amarillo Pikachu */
+  border: none;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  color: #3b4cca; /* Azul Pokémon */
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-top: 8rem; /* Añadido para que el botón quede más abajo */
+
+  &:hover {
+    background-color: #3b4cca; /* Azul Pokémon */
+    color: #ffffff; /* Blanco */
+  }
+}
+
+
