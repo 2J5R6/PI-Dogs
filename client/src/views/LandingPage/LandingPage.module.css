@@ -1,5 +1,5 @@
 .landingContainer {
-  background-image: url('../../assets/images/Pokémon-Gotta.png');
+  background-image: url('../../assets/Some\ DOGS.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,6 +30,7 @@
   &:hover {
     background-color: #3b4cca; /* Azul Pokémon */
     color: #ffffff; /* Blanco */
+    transform: scale(1.05); /* Efecto de crecimiento ligeramente al hacer hover */
   }
 }
 

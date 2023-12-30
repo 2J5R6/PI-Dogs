@@ -1,38 +1,28 @@
-// import React from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { setCurrentPage } from '../../redux/actions/pokemonActions';
-// import styles from './Pagination.module.css';
+import React from 'react';
+import styles from './Pagination.module.css';
 
-// const Pagination = () => {
-//   const dispatch = useDispatch();
-//   const currentPage = useSelector(state => state.pokemons.currentPage);
-//   const totalPages = useSelector(state => state.pokemons.totalPages);
+const Pagination = ({ dogsPerPage, totalDogs, paginate, currentPage }) => {
+  const pageNumbers = [];
 
-//   const handlePrevPage = () => {
-//     if (currentPage > 1) {
-//       dispatch(setCurrentPage(currentPage - 1));
-//     }
-//   };
+  for (let i = 1; i <= Math.ceil(totalDogs / dogsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
-//   const handleNextPage = () => {
-//     if (currentPage < totalPages) {
-//       dispatch(setCurrentPage(currentPage + 1));
-//     }
-//   };
+  return (
+    <nav>
+      <ul className={styles.pagination}>
+        {pageNumbers.map(number => (
+          <li key={number} className={styles.pageItem}>
+            <a onClick={() => paginate(number)} 
+               href='#!' 
+               className={`${styles.pageLink} ${currentPage === number ? styles.active : ''}`}>
+              {number}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
 
-//   return (
-//     <div className={styles.paginationContainer}>
-//       <button className={styles.pageButton} onClick={handlePrevPage} disabled={currentPage === 1}>
-//         Prev
-//       </button>
-//       <span className={styles.pageNumber}>
-//         {currentPage} / {totalPages}
-//       </span>
-//       <button className={styles.pageButton} onClick={handleNextPage} disabled={currentPage === totalPages}>
-//         Next
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default Pagination;
+export default Pagination;

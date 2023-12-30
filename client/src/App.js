@@ -1,27 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from '../src/components/NavBar/NavBar';
-import LandingPage from './views/LandingPage/LandingPage';
+import { useDispatch } from 'react-redux';
+import { getAllDogs, getTemperaments } from './redux/actions/actions';
 import HomePage from './views/HomePage/HomePage';
 import DetailPage from './views/DetailPage/DetailPage';
+import LandingPage from './views/LandingPage/LandingPage';
 import FormPage from './views/FormPage/FormPage';
-import Favorites from './views/Favorites/Favorites';
+import NavBar from './components/NavBar/NavBar';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/home" element={<HomePage />} />
-        {/* <Route path="/pokemon/:id" element={<DetailPage />} /> 
-        <Route path="/create" element={<FormPage />}/>
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/*" element={<NavBar />} /> */}
-        <Route path="/" element={<LandingPage />} />
-      </Routes>
+const App = () => {
+  const dispatch = useDispatch();
 
-    </div>
+  useEffect(() => {
+    dispatch(getAllDogs());
+    dispatch(getTemperaments());
+  }, [dispatch]);
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/*" element={<NavBar />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/dog/:id" element={<DetailPage />} />
+        <Route path="/create" element={<FormPage />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;

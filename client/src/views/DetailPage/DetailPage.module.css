@@ -1,78 +1,72 @@
-.container {
-  background-image: url('../../assets/images/Pokemon-stats.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
+.detailContainer {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  overflow: hidden;
-}
-
-.content {
-  background-color: rgb(185, 175, 204, 0.5);
   padding: 20px;
+  background: #f7f7f7;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  width: 80%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
   max-width: 800px;
+  margin: 40px auto;
 }
 
-.image {
-  width: 50%;
-  max-width: 200px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 0 auto;
+.title {
+  font-size: 2.5em;
+  color: #333;
 }
 
-.name {
-  font-size: 2em;
-  margin-top: 10px;
+.dogImage {
+  max-width: 100%;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  background: url('../../assets/PAW-print.png') center no-repeat; /* Replace with your paw print image */
+  background-size: contain;
 }
 
-.stat {
-  margin: 10px 0;
+.info p {
+  font-size: 1.2em;
+  color: #666;
+  margin: 5px 0;
 }
 
-.progressBar {
-  background-color: #b38989;
-  border-radius: 10px;
-  overflow: hidden;
+.temperaments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.progress {
-  background-color: #4caf50;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  border-radius: 10px 0 0 10px;
-}
-
-.type {
-  display: inline-block;
-  margin: 5px;
+.temperament {
+  background-color: #eaeaea;
+  border-radius: 20px;
   padding: 5px 10px;
-  background-color: #f44336;
-  color: white;
-  border-radius: 5px;
+  margin: 5px;
+  font-size: 0.9em;
 }
 
-/* Media queries for responsiveness */
+.loading, .error {
+  font-size: 1.5em;
+  color: #d9534f;
+}
+
+/* Decorative paw print */
+.detailContainer::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: url('../../assets/PAW-print.png') no-repeat; /* Replace with your paw print image */
+  background-size: cover;
+  width: 100px; /* Adjust size as needed */
+  height: 100px;
+  opacity: 0.2;
+}
+
 @media (max-width: 768px) {
-  .name {
-    font-size: 1.5em;
-  }
-}
-
-@media (max-width: 480px) {
-  .name {
-    font-size: 1.2em;
-  }
-  .image {
-    width: 60%;
+  .detailContainer {
+    width: 90%;
+    box-shadow: none;
   }
 }

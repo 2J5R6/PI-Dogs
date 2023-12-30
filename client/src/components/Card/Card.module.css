@@ -1,60 +1,113 @@
 .cardContainer {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  padding: 10px;
+  perspective: 1000px;
+  width: 250px;
+  height: 350px;
   margin: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+.cardInner {
+  width: 100%;
+  height: 100%;
   position: relative;
-}
-
-.heartIcon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
   cursor: pointer;
-  color: white;
-  animation: pulse 1s;
 }
 
-.favorite {
-  color: red;
+.cardFront, .cardBack {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
-.pokemonImage {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
+.cardFront {
+  z-index: 2;
+  /* Add additional styling and background images */
 }
 
-.pokemonDetails {
-  flex: 1;
+.cardBack {
+  transform: rotateY(180deg);
+  z-index: 1;
+  /* Add additional styling */
 }
 
-.pokemonName {
-  font-size: 24px;
+.dogImage {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.dogName {
   font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
-.pokemonType {
-  display: inline-block;
-  background-color: #eee;
+.temperaments {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.temperament {
+  margin: 5px;
   padding: 5px 10px;
-  margin-right: 5px;
-  border-radius: 5px;
-  text-transform: uppercase;
+  background-color: #eaeaea;
+  border-radius: 20px;
+  font-size: 0.8em;
 }
 
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
+.weightRange {
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.detailsButton {
+  text-decoration: none;
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.detailsButton:hover {
+  background-color: #333;
+}
+
+/* Ensures the front and back are sized equally */
+.cardFront::after, .cardBack::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+/* Hover effect to flip the card */
+.cardContainer:hover .cardInner {
+  transform: rotateY(180deg);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .cardContainer {
+    width: 100%;
+    height: auto;
   }
 }

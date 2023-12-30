@@ -1,34 +1,37 @@
-.paginationContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.pageItem {
+  margin: 0 5px;
+}
+
+.pageLink {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.pageLink:hover {
+  background-color: #f8f8f8;
+}
+
+.active {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+@media (max-width: 768px) {
+  .pageLink {
+    padding: 6px 12px;
   }
-  
-  .pageButton {
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #FFCB05; /* Color amarillo de Pikachu */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .pageButton:hover {
-    background-color: #3D7DCA; /* Color azul Pokémon */
-  }
-  
-  .pageButton:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .pageNumber {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
+}

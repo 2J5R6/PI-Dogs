@@ -1,19 +1,14 @@
+/* Cards.module.css */
 .cardsContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
   justify-content: center;
-  gap: 20px; /* Espacio entre las tarjetas */
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin: 20px auto; /* Margen automático para centrar el contenedor */
-  max-width: 1200px; /* Ancho máximo del contenedor */
 }
 
 @media (max-width: 768px) {
   .cardsContainer {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr;
   }
 }

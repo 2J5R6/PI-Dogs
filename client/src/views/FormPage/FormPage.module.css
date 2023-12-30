@@ -1,0 +1,80 @@
+.formContainer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 40px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+input[type="text"].invalid, input[type="number"].invalid {
+  border-color: #e74c3c; /* Rojo para indicar campo inválido */
+}
+
+input[type="text"].valid, input[type="number"].valid {
+  border-color: #2ecc71; /* Verde para indicar campo válido */
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Diseño de huella de perro con CSS */
+.paw {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #333;
+  font-size: 5em;
+  opacity: 0.1;
+}
+
+.paw::before, .paw::after {
+  content: '';
+  position: absolute;
+  top: 25%;
+  width: 0.25em;
+  height: 0.25em;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.paw::before {
+  left: -1em;
+  box-shadow: 2em 0 0 currentColor, 1em -1em 0 0 currentColor, -1em -1em 0 0 currentColor;
+}
+
+.paw::after {
+  right: -1em;
+  box-shadow: 2em 0 0 currentColor;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  button {
+    padding: 8px 16px;
+  }
+}

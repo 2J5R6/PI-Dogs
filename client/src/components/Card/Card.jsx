@@ -1,43 +1,37 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToFavorites, removeFromFavorites } from '../../redux/actions/pokemonActions';
 import styles from './Card.module.css';
 
-const Card = ({ pokemon }) => {
-  const dispatch = useDispatch();
-  const favorites = useSelector(state => state.pokemons.favorites);
-
-  const isFavorite = favorites.some(fav => fav.id === pokemon.id);
-
-  const handleFavoriteClick = () => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(pokemon));
-    } else {
-      dispatch(addToFavorites(pokemon));
-    }
-  };
-
+const Card = ({ dog }) => {
   return (
     <div className={styles.cardContainer}>
-      <div className={styles.heartIcon} onClick={handleFavoriteClick}>
-        {isFavorite ? (
-          <i className={`fas fa-heart ${styles.favorite}`}>❤️</i>
-        ) : (
-          <i className="far fa-heart">🤍</i>
-        )}
-      </div>
-      <Link to={`/pokemon/${pokemon.id}`}>
-        <img src={pokemon.image} alt={pokemon.name} className={styles.pokemonImage} />
-        <div className={styles.pokemonDetails}>
-          <h2 className={styles.pokemonName}>{pokemon.name.toUpperCase()}</h2>
-          {pokemon.types && pokemon.types.map(type => (
-            <span key={type.id} className={styles.pokemonType}>
-              {type.name.toUpperCase()}
-            </span>
-          ))}
+      <div className={styles.cardInner}>
+        <div className={styles.cardFront}>
+          <img src={dog.image} alt={dog.name} className={styles.dogImage} />
+          <h2 className={styles.dogName}>{dog.name.toUpperCase()}</h2>
+          <div className={styles.temperaments}>
+            {dog.temperaments.map(temp => (
+              <span key={temp} className={styles.temperament}>{temp.toUpperCase()}</span>
+            ))}
+          </div>
+          <div className={styles.weightRange}>
+            <span className={styles.weight}>WEIGHT: {dog.weight}</span>
+          </div>
         </div>
-      </Link>
+        <div className={styles.cardBack}>
+          <h2 className={styles.dogName}>{dog.name.toUpperCase()}</h2>
+          <div className={styles.dogDetails}>
+            <p>TEMPERAMENTS:</p>
+            <ul>
+              {dog.temperaments.map(temp => (
+                <li key={temp} className={styles.temperament}>{temp.toUpperCase()}</li>
+              ))}
+            </ul>
+            <p>WEIGHT: {dog.weight}</p>
+          </div>
+          <Link to={`/dog/${dog.id}`} className={styles.detailsButton}>DETAILS</Link>
+        </div>
+      </div>
     </div>
   );
 };
