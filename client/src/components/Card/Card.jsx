@@ -10,8 +10,8 @@ const Card = ({ dog }) => {
           <img src={dog.image} alt={dog.name} className={styles.dogImage} />
           <h2 className={styles.dogName}>{dog.name.toUpperCase()}</h2>
           <div className={styles.temperaments}>
-            {dog.temperaments.map(temp => (
-              <span key={temp} className={styles.temperament}>{temp.toUpperCase()}</span>
+            {dog.temperaments && dog.temperaments.map((temp, index) => (
+              <span key={index} className={styles.temperament}>{typeof temp === 'string' ? temp.toUpperCase() : ''}</span>
             ))}
           </div>
           <div className={styles.weightRange}>
@@ -23,8 +23,8 @@ const Card = ({ dog }) => {
           <div className={styles.dogDetails}>
             <p>TEMPERAMENTS:</p>
             <ul>
-              {dog.temperaments.map(temp => (
-                <li key={temp} className={styles.temperament}>{temp.toUpperCase()}</li>
+              {dog.temperaments && dog.temperaments.map((temp, index) => (
+                <li key={index} className={styles.temperament}>{typeof temp === 'string' ? temp.toUpperCase() : ''}</li>
               ))}
             </ul>
             <p>WEIGHT: {dog.weight}</p>
