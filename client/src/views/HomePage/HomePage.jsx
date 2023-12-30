@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs } from '../../redux/actions/actions';
 import NavBar from '../../components/NavBar/NavBar';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import Cards from '../../components/Cards/Cards'; // Asegúrate de que este componente puede manejar un array de 'dogs' para renderizar los Card.
-import Filters from '../../components/Filters/Filters';
+import Cards from '../../components/Cards/Cards'; 
+// import Filters from '../../components/Filters/Filters';
 import Pagination from '../../components/Pagination/Pagination';
 import styles from './HomePage.module.css';
 
@@ -30,7 +30,7 @@ const HomePage = () => {
     <div className={styles.homePageContainer}>
       <NavBar />
       <SearchBar />
-      <Filters />
+      {/* <Filters /> */}
       <div className={styles.cardsContainer}>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
