@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs } from '../../redux/actions/actions';
 import NavBar from '../../components/NavBar/NavBar';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import Cards from '../../components/Cards/Cards'; 
+import Cards from '../../components/Cards/Cards';
 // import Filters from '../../components/Filters/Filters';
 import Pagination from '../../components/Pagination/Pagination';
 import styles from './HomePage.module.css';
@@ -31,17 +31,19 @@ const HomePage = () => {
       <NavBar />
       <SearchBar />
       {/* <Filters /> */}
-      <div className={styles.cardsContainer}>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-        {!loading && !error && <Cards dogs={currentDogs} />}
+      <div className={styles.contentArea}> {/* Añadir un contenedor para el contenido principal */}
+        <div className={styles.cardsContainer}>
+          {loading && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {!loading && !error && <Cards dogs={currentDogs} />}
+        </div>
+        <Pagination
+          dogsPerPage={dogsPerPage}
+          totalDogs={dogs.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </div>
-      <Pagination
-        dogsPerPage={dogsPerPage}
-        totalDogs={dogs.length}
-        paginate={paginate}
-        currentPage={currentPage}
-      />
     </div>
   );
 };
