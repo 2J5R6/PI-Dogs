@@ -13,6 +13,7 @@ const FormPage = () => {
     weightMax: 10,
     life_span: 10,
     image: '',
+    description: 'A cutty',
     temperaments: [],
   };
 
@@ -206,6 +207,16 @@ const FormPage = () => {
         {formData.image && (
           <img src={formData.image} alt="Dog preview" className={styles.imagePreview} />
         )}
+
+        <label htmlFor="description">Description (optional)</label>
+        <textarea
+          id="description"
+          name="description"
+          value={formData.description}
+          onChange={handleInputChange}
+          className={formErrors.description ? styles.inputError : ''}
+        />
+        {formErrors.description && <div className={styles.error}>{formErrors.description}</div>}
 
         {/* Temperaments field */}
         {/* ... */}
