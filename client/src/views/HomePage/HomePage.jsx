@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs } from '../../redux/actions/actions';
-import NavBar from '../../components/NavBar/NavBar';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Cards from '../../components/Cards/Cards';
 // import Filters from '../../components/Filters/Filters';
@@ -28,7 +27,6 @@ const HomePage = () => {
 
   return (
     <div className={styles.homePageContainer}>
-      <NavBar />
       <SearchBar />
       {/* <Filters /> */}
       <div className={styles.contentArea}> {/* Añadir un contenedor para el contenido principal */}
