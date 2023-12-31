@@ -62,7 +62,7 @@ export const getTemperaments = () => async (dispatch) => {
 export const createDog = (dogData) => async (dispatch) => {
   dispatch({ type: CREATE_DOG_REQUEST });
   try {
-    const response = await axios.post(`${BASE_URL}/dog`, dogData);
+    const response = await axios.post(`${BASE_URL}/dogs`, dogData);
     dispatch({ type: CREATE_DOG_SUCCESS, payload: response.data });
   } catch (error) {
     dispatch({ type: CREATE_DOG_FAILURE, payload: error.message });
