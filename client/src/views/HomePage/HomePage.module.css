@@ -1,10 +1,8 @@
 .homePageContainer {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Asegurar alineación central */
-  justify-content: flex-start;
-  width: 100%; /* Permitir que el contenedor ocupe todo el ancho */
-  margin: 0 auto; /* Centrar el contenedor */
+  width: 100%;
+  margin: 0 auto;
 }
 
 .contentArea {
@@ -13,22 +11,22 @@
   align-items: center;
   justify-content: flex-start;
   flex-grow: 1;
-  width: 100%; /* Permitir que el área de contenido ocupe todo el ancho */
-  padding: 20px; /* Espaciado para evitar superposición */
+  width: 100%;
+  padding: 20px;
 }
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste para adaptarse al tamaño de la pantalla */
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px; /* Aumentar el espacio entre tarjetas */
   width: 100%;
-  justify-content: center; /* Centrar los elementos en el grid */
+  justify-content: center;
+  margin-bottom: 30px; /* Espacio antes de la paginación */
 }
 
-/* Estilos para pantallas pequeñas (móviles) */
 @media (max-width: 768px) {
   .cardsContainer {
-    grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas */
-    gap: 10px; /* Reducir el espacio entre tarjetas en móviles */
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 }
