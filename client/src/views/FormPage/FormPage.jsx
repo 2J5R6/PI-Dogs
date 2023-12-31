@@ -45,9 +45,10 @@ const FormPage = () => {
 
   const validateField = (name, value) => {
     let errors = { ...formErrors };
+    const isNumber = /^\d+$/; // RegEx para verificar si el valor es numérico
     switch (name) {
       case 'name':
-        errors.name = value.trim() ? '' : 'Name is required.';
+        errors.name = value.trim() && !isNumber.test(value) ? '' : 'Name is required.';
         break;
       case 'heightMin':
       case 'heightMax':
@@ -59,6 +60,9 @@ const FormPage = () => {
         break;
       case 'life_span':
         errors.life_span = value ? '' : 'Life span is required.';
+        break;
+      case 'temperament':
+        errors.temperament = value.trim() && !isNumber.test(value) ? '' : 'Temperament must be text.';
         break;
       default:
         break;
@@ -226,9 +230,13 @@ const FormPage = () => {
           id="temperament"
           name="temperament"
           value={tempInput}
-          onChange={(e) => setTempInput(e.target.value)}
-          className={styles.input}
+          onChange={(e) => {
+            setTempInput(e.target.value);
+            validateField(e.target.name, e.target.value);
+          }}
+          className={formErrors.temperament ? styles.inputError : ''}
         />
+        {formErrors.temperament && <div className={styles.error}>{formErrors.temperament}</div>}
         <button type="button" onClick={handleAddTemperament} className={styles.addButton}>Add Temperament</button>
         <div className={styles.temperamentTags}>
           {formData.temperaments.map((temp, index) => (
