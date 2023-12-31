@@ -89,11 +89,18 @@ const FormPage = () => {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit}>
-        {/* Name field */}
-        {/* ... */}
-        
-        {/* Height fields */}
-        <label htmlFor="heightMin">Minimum Height</label>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+        />
+        {formErrors.name && <div className={styles.error}>{formErrors.name}</div>}
+
+         {/* Height fields */}
+         <label htmlFor="heightMin">Minimum Height</label>
         <input
           type="number"
           id="heightMin"
@@ -103,74 +110,66 @@ const FormPage = () => {
         />
         {formErrors.height && <div className={styles.error}>{formErrors.height}</div>}
 
-        <label htmlFor="heightMax">Maximum Height</label>
-        <input
-          type="number"
-          id="heightMax"
-          name="heightMax"
-          value={formData.heightMax}
-          onChange={handleInputChange}
-        />
+            {/* Weight fields */}
+            <label htmlFor="weightMin">Minimum Weight</label>
+            <input
+              type="number"
+              id="weightMin"
+              name="weightMin"
+              value={formData.weightMin}
+              onChange={handleInputChange}
+            />
+            {formErrors.weight && <div className={styles.error}>{formErrors.weight}</div>}
 
-        {/* Weight fields */}
-<label htmlFor="weightMin">Minimum Weight</label>
-<input
-  type="number"
-  id="weightMin"
-  name="weightMin"
-  value={formData.weightMin}
-  onChange={handleInputChange}
-/>
-{formErrors.weight && <div className={styles.error}>{formErrors.weight}</div>}
+            <label htmlFor="weightMax">Maximum Weight</label>
+            <input
+              type="number"
+              id="weightMax"
+              name="weightMax"
+              value={formData.weightMax}
+              onChange={handleInputChange}
+            />
 
-<label htmlFor="weightMax">Maximum Weight</label>
-<input
-  type="number"
-  id="weightMax"
-  name="weightMax"
-  value={formData.weightMax}
-  onChange={handleInputChange}
-/>
+            {/* Life span field */}
+            <label htmlFor="life_span">Life Span (years)</label>
+            <input
+              type="number"
+              id="life_span"
+              name="life_span"
+              value={formData.life_span}
+              onChange={handleInputChange}
+            />
+            {formErrors.life_span && <div className={styles.error}>{formErrors.life_span}</div>}
 
-{/* Life span field */}
-<label htmlFor="life_span">Life Span (years)</label>
-<input
-  type="number"
-  id="life_span"
-  name="life_span"
-  value={formData.life_span}
-  onChange={handleInputChange}
-/>
-{formErrors.life_span && <div className={styles.error}>{formErrors.life_span}</div>}
+            {/* Image URL field */}
+            <label htmlFor="image">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              value={formData.image}
+              onChange={handleInputChange}
+            />
+            {formData.image && (
+              <img src={formData.image} alt="Dog preview" className={styles.imagePreview} />
+            )}
 
-{/* Image URL field */}
-<label htmlFor="image">Image URL</label>
-<input
-  type="text"
-  id="image"
-  name="image"
-  value={formData.image}
-  onChange={handleInputChange}
-/>
-{formData.image && (
-  <img src={formData.image} alt="Dog preview" className={styles.imagePreview} />
-)}
+            {/* Temperaments field */}
+            <label htmlFor="temperament">Temperament</label>
+            <input
+              type="text"
+              id="temperament"
+              name="temperament"
+              value={tempInput}
+              onChange={(e) => setTempInput(e.target.value)}
+            />
+            <button type="button" onClick={handleAddTemperament}>Add Temperament</button>
+            <div className={styles.temperamentTags}>
+              {formData.temperaments.map((temp, index) => (
+                <span key={index} className={styles.temperamentTag}>{temp}</span>
+              ))}
+            </div>
 
-{/* Temperaments field */}
-<label htmlFor="temperament">Temperament</label>
-<input
-  type="text"
-  id="temperament"
-  name="temperament"
-  value={tempInput}
-  onChange={(e) => setTempInput(e.target.value)}
-/>
-<button type="button" onClick={handleAddTemperament}>Add Temperament</button>
-<div className={styles.temperamentTags}>
-  {formData.temperaments.map((temp, index) => (
-    <span key={index} className={styles.temperamentTag}>{temp}</span>
-  ))}
-</div>
 
         <button type="submit">Create Dog</button>
         <button type="button" onClick={() => setFormData(initialFormState)}>Cancel</button>
