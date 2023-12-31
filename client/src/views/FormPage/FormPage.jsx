@@ -7,21 +7,38 @@ const FormPage = () => {
   const dispatch = useDispatch();
   const initialFormState = {
     name: '',
-    heightMin: '',
-    heightMax: '',
-    weightMin: '',
-    weightMax: '',
-    life_span: '',
+    heightMin: 10,
+    heightMax: 20,
+    weightMin: 5,
+    weightMax: 10,
+    life_span: 10,
     image: '',
     temperaments: [],
   };
+
   const [formData, setFormData] = useState(initialFormState);
   const [formErrors, setFormErrors] = useState({});
   const [tempInput, setTempInput] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    let newFormData = { ...formData, [name]: value };
+    
+    // Ajustar el rango mínimo y máximo para los sliders de altura y peso
+    if (name === "heightMin" && parseInt(value) >= parseInt(formData.heightMax)) {
+      newFormData.heightMax = parseInt(value) + 1;
+    }
+    if (name === "heightMax" && parseInt(value) <= parseInt(formData.heightMin)) {
+      newFormData.heightMin = parseInt(value) - 1;
+    }
+    if (name === "weightMin" && parseInt(value) >= parseInt(formData.weightMax)) {
+      newFormData.weightMax = parseInt(value) + 1;
+    }
+    if (name === "weightMax" && parseInt(value) <= parseInt(formData.weightMin)) {
+      newFormData.weightMin = parseInt(value) - 1;
+    }
+    
+    setFormData(newFormData);
     validateField(name, value);
   };
 
@@ -33,15 +50,11 @@ const FormPage = () => {
         break;
       case 'heightMin':
       case 'heightMax':
-        const minHeight = formData.heightMin || value;
-        const maxHeight = formData.heightMax || value;
-        errors.height = (minHeight < maxHeight) ? '' : 'Invalid height range.';
+        errors.height = (formData.heightMin < formData.heightMax) ? '' : 'Invalid height range.';
         break;
       case 'weightMin':
       case 'weightMax':
-        const minWeight = formData.weightMin || value;
-        const maxWeight = formData.weightMax || value;
-        errors.weight = (minWeight < maxWeight) ? '' : 'Invalid weight range.';
+        errors.weight = (formData.weightMin < formData.weightMax) ? '' : 'Invalid weight range.';
         break;
       case 'life_span':
         errors.life_span = value ? '' : 'Life span is required.';
@@ -65,6 +78,7 @@ const FormPage = () => {
       alert('Please correct the errors in the form.');
       return;
     }
+
     const dogData = {
       name: formData.name,
       height: `${formData.heightMin} - ${formData.heightMax}`,
@@ -73,9 +87,10 @@ const FormPage = () => {
       image: formData.image,
       temperaments: formData.temperaments.join(", "),
     };
+
     try {
       const response = await dispatch(createDog(dogData));
-      if (response.type.includes('SUCCESS')) {
+      if (response.type.includes('fulfilled')) {
         alert("Dog created successfully!");
         setFormData(initialFormState);
       } else {
@@ -89,6 +104,7 @@ const FormPage = () => {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit}>
+        {/* Fields are now added without comments */}
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -96,83 +112,121 @@ const FormPage = () => {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
+          className={formErrors.name ? styles.inputError : ''}
         />
         {formErrors.name && <div className={styles.error}>{formErrors.name}</div>}
 
-         {/* Height fields */}
-         <label htmlFor="heightMin">Minimum Height</label>
+        {/* Height and Weight fields with sliders */}
+        {/* ... */}
+        <div className={styles.rangeField}>
+          <label htmlFor="heightMin">Minimum Height (cm): {formData.heightMin}</label>
+          <input
+            type="range"
+            id="heightMin"
+            name="heightMin"
+            min="10"
+            max={formData.heightMax}
+            value={formData.heightMin}
+            onChange={handleInputChange}
+            className={styles.slider}
+          />
+        </div>
+
+        <div className={styles.rangeField}>
+          <label htmlFor="heightMax">Maximum Height (cm): {formData.heightMax}</label>
+          <input
+            type="range"
+            id="heightMax"
+            name="heightMax"
+            min={formData.heightMin}
+            max="90"
+            value={formData.heightMax}
+            onChange={handleInputChange}
+            className={styles.slider}
+          />
+        </div>
+
+        {/*Weight fields */}
+        {/* ... */}
+        <div className={styles.rangeField}>
+          <label htmlFor="weightMin">Minimum Weight (kg): {formData.weightMin}</label>
+          <input
+            type="range"
+            id="weightMin"
+            name="weightMin"
+            min="1"
+            max={formData.weightMax}
+            value={formData.weightMin}
+            onChange={handleInputChange}
+            className={styles.slider}
+          />
+        </div>
+
+<div className={styles.rangeField}>
+  <label htmlFor="weightMax">Maximum Weight (kg): {formData.weightMax}</label>
+  <input
+    type="range"
+    id="weightMax"
+    name="weightMax"
+    min={formData.weightMin}
+    max="90"
+    value={formData.weightMax}
+    onChange={handleInputChange}
+    className={styles.slider}
+  />
+</div>
+
+        {/* Life Span field */}
+        {/* ... */}
+        <div className={styles.rangeField}>
+          <label htmlFor="life_span">Life Span (years): {formData.life_span}</label>
+          <input
+            type="range"
+            id="life_span"
+            name="life_span"
+            min="1"
+            max="20"
+            value={formData.life_span}
+            onChange={handleInputChange}
+            className={styles.slider}
+          />
+        </div>
+
+        {/* Image URL field */}
+        {/* ... */}
+        <label htmlFor="image">Image URL</label>
         <input
-          type="number"
-          id="heightMin"
-          name="heightMin"
-          value={formData.heightMin}
+          type="text"
+          id="image"
+          name="image"
+          value={formData.image}
           onChange={handleInputChange}
+          className={formErrors.image ? styles.inputError : ''}
         />
-        {formErrors.height && <div className={styles.error}>{formErrors.height}</div>}
+        {formData.image && (
+          <img src={formData.image} alt="Dog preview" className={styles.imagePreview} />
+        )}
 
-            {/* Weight fields */}
-            <label htmlFor="weightMin">Minimum Weight</label>
-            <input
-              type="number"
-              id="weightMin"
-              name="weightMin"
-              value={formData.weightMin}
-              onChange={handleInputChange}
-            />
-            {formErrors.weight && <div className={styles.error}>{formErrors.weight}</div>}
+        {/* Temperaments field */}
+        {/* ... */}
+        <label htmlFor="temperament">Temperament</label>
+        <input
+          type="text"
+          id="temperament"
+          name="temperament"
+          value={tempInput}
+          onChange={(e) => setTempInput(e.target.value)}
+          className={styles.input}
+        />
+        <button type="button" onClick={handleAddTemperament} className={styles.addButton}>Add Temperament</button>
+        <div className={styles.temperamentTags}>
+          {formData.temperaments.map((temp, index) => (
+            <span key={index} className={styles.temperamentTag}>{temp}</span>
+          ))}
+        </div>
 
-            <label htmlFor="weightMax">Maximum Weight</label>
-            <input
-              type="number"
-              id="weightMax"
-              name="weightMax"
-              value={formData.weightMax}
-              onChange={handleInputChange}
-            />
-
-            {/* Life span field */}
-            <label htmlFor="life_span">Life Span (years)</label>
-            <input
-              type="number"
-              id="life_span"
-              name="life_span"
-              value={formData.life_span}
-              onChange={handleInputChange}
-            />
-            {formErrors.life_span && <div className={styles.error}>{formErrors.life_span}</div>}
-
-            {/* Image URL field */}
-            <label htmlFor="image">Image URL</label>
-            <input
-              type="text"
-              id="image"
-              name="image"
-              value={formData.image}
-              onChange={handleInputChange}
-            />
-            {formData.image && (
-              <img src={formData.image} alt="Dog preview" className={styles.imagePreview} />
-            )}
-
-            {/* Temperaments field */}
-            <label htmlFor="temperament">Temperament</label>
-            <input
-              type="text"
-              id="temperament"
-              name="temperament"
-              value={tempInput}
-              onChange={(e) => setTempInput(e.target.value)}
-            />
-            <button type="button" onClick={handleAddTemperament}>Add Temperament</button>
-            <div className={styles.temperamentTags}>
-              {formData.temperaments.map((temp, index) => (
-                <span key={index} className={styles.temperamentTag}>{temp}</span>
-              ))}
-            </div>
-
-
-        <button type="submit">Create Dog</button>
-        <button type="button" onClick={() => setFormData(initialFormState)}>Cancel</button>
+        <button type="submit" className={styles.createButton}>Create Dog</button>
+        <button type="button" onClick={() => setFormData(initialFormState)} className={styles.cancelButton}>Cancel</button>
       </form>
     </div>
   );
