@@ -83,16 +83,17 @@ const FormPage = () => {
       alert('Please correct the errors in the form.');
       return;
     }
-
+  
     const dogData = {
       name: formData.name,
-      height: `${formData.heightMin} - ${formData.heightMax}`,
-      weight: `${formData.weightMin} - ${formData.weightMax}`,
+      height: { metric: `${formData.heightMin} - ${formData.heightMax}` },
+      weight: { metric: `${formData.weightMin} - ${formData.weightMax}` },
       life_span: `${formData.life_span} years`,
-      image: formData.image,
-      temperaments: formData.temperaments.join(", "),
+      image: { url: formData.image },
+      description: formData.description,
+      temperaments: formData.temperaments
     };
-
+  
     try {
       const response = await dispatch(createDog(dogData));
       if (response.type.includes('fulfilled')) {
@@ -105,6 +106,7 @@ const FormPage = () => {
       alert("An error occurred. Please try again.");
     }
   };
+  
 
   return (
     <div className={styles.formContainer}>
