@@ -53,7 +53,14 @@ export const getDogByName = (name) => async (dispatch) => {
 };
 
 export const getDogCardById = (id) => async (dispatch) => {
-  // Implementar la lógica para obtener solo la tarjeta del perro por ID
+  dispatch({ type: GET_DOG_BY_ID_REQUEST });
+  try {
+    const response = await axios.get(`${BASE_URL}/dogs/${id}`);
+    // Asegúrate de que esta respuesta coincida con lo que esperas en el front-end
+    dispatch({ type: GET_DOG_BY_ID_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({ type: GET_DOG_BY_ID_FAILURE, payload: error.message });
+  }
 };
 
 export const getTemperaments = () => async (dispatch) => {

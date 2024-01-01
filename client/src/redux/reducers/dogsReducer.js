@@ -7,6 +7,7 @@ import {
   CREATE_DOG_REQUEST,
   CREATE_DOG_SUCCESS,
   CREATE_DOG_FAILURE,
+  GET_DOG_BY_ID_SUCCESS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -24,13 +25,17 @@ const dogsReducer = (state = initialState, action) => {
       return { ...state, loading: false, dogs: action.payload };
     case GET_ALL_DOGS_FAILURE:
       return { ...state, loading: false, error: action.payload };
-      case CREATE_DOG_REQUEST:
-        return { ...state, loading: true };
-      case CREATE_DOG_SUCCESS:
-        // Puedes decidir si quieres añadir el nuevo perro al estado o no
-        return { ...state, loading: false, dogs: [...state.dogs, action.payload] };
-      case CREATE_DOG_FAILURE:
-        return { ...state, loading: false, error: action.payload };
+    case CREATE_DOG_REQUEST:
+      return { ...state, loading: true };
+    case CREATE_DOG_SUCCESS:
+      // Puedes decidir si quieres añadir el nuevo perro al estado o no
+      return { ...state, loading: false, dogs: [...state.dogs, action.payload] };
+    case CREATE_DOG_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+    case GET_DOG_BY_ID_SUCCESS:
+      // Asegúrate de actualizar el estado con la tarjeta del perro encontrado
+      return { ...state, loading: false, dogs: [action.payload] };
+    
     default:
       return state;
   }
