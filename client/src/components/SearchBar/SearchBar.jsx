@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getDogByName, getDogDetailById } from '../../redux/actions/actions'; 
+import { getDogByName, getDogCardById } from '../../redux/actions/actions'; 
 import styles from './SearchBar.module.css';
 
 const SearchBar = () => {
@@ -10,7 +10,7 @@ const SearchBar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (!isNaN(searchTerm)) {
-      dispatch(getDogDetailById(searchTerm));
+      dispatch(getDogCardById(searchTerm));
     } else {
       dispatch(getDogByName(searchTerm));
     }

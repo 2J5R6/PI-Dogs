@@ -9,6 +9,9 @@ import {
   GET_DOG_BY_NAME_REQUEST,
   GET_DOG_BY_NAME_SUCCESS,
   GET_DOG_BY_NAME_FAILURE,
+  GET_DOG_BY_ID_REQUEST,
+  GET_DOG_BY_ID_SUCCESS,
+  GET_DOG_BY_ID_FAILURE,
   CREATE_DOG_REQUEST,
   CREATE_DOG_SUCCESS,
   CREATE_DOG_FAILURE,
@@ -47,6 +50,10 @@ export const getDogByName = (name) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: GET_DOG_BY_NAME_FAILURE, payload: error.message });
   }
+};
+
+export const getDogCardById = (id) => async (dispatch) => {
+  // Implementar la lógica para obtener solo la tarjeta del perro por ID
 };
 
 export const getTemperaments = () => async (dispatch) => {
