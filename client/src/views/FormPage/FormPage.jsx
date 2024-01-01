@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createDog } from '../../redux/actions/actions';
+import { CREATE_DOG_SUCCESS } from '../../redux/actions/actionTypes';
 import styles from './FormPage.module.css';
 
 const FormPage = () => {
@@ -95,8 +96,8 @@ const FormPage = () => {
     };
   
     try {
-      const response = await dispatch(createDog(dogData));
-      if (response.payload && response.payload.status === 201) {
+      const actionResult = await dispatch(createDog(dogData));
+      if (actionResult.type === CREATE_DOG_SUCCESS) {
         alert("Dog created successfully!");
         setFormData(initialFormState);
       } else {
