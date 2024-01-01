@@ -7,7 +7,8 @@ import {
   CREATE_DOG_REQUEST,
   CREATE_DOG_SUCCESS,
   CREATE_DOG_FAILURE,
-  GET_DOG_BY_ID_SUCCESS
+  GET_DOG_BY_ID_SUCCESS,
+  GET_DOG_BY_NAME_SUCCESS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -35,6 +36,8 @@ const dogsReducer = (state = initialState, action) => {
     case GET_DOG_BY_ID_SUCCESS:
       // Asegúrate de actualizar el estado con la tarjeta del perro encontrado
       return { ...state, loading: false, dogs: [action.payload] };
+    case GET_DOG_BY_NAME_SUCCESS:
+      return { ...state, loading: false, dogs: action.payload };
     
     default:
       return state;

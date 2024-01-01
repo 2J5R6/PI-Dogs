@@ -8,7 +8,7 @@ const Card = ({ dog }) => {
     <div className={styles.cardContainer}>
       <div className={styles.cardInner}>
         <div className={styles.cardFront}>
-          <img src={dog.image ? dog.image.url: defaultImageUrl} alt={dog.name} className={styles.dogImage} />
+          <img src={dog.image ? dog.image.url : defaultImageUrl} alt={dog.name} className={styles.dogImage} />
           <h2 className={styles.dogName}>{dog.name.toUpperCase()}</h2>
           <div className={styles.temperaments}>
             {dog.temperaments && dog.temperaments.map((temp, index) => (
