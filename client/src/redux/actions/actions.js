@@ -63,8 +63,18 @@ export const createDog = (dogData) => async (dispatch) => {
   dispatch({ type: CREATE_DOG_REQUEST });
   try {
     const response = await axios.post(`${BASE_URL}/dogs`, dogData);
-    dispatch({ type: CREATE_DOG_SUCCESS, payload: response.data });
+    if (response.status === 201) {
+      const action = { type: CREATE_DOG_SUCCESS, payload: response.data };
+      dispatch(action);
+      return action;  // Devuelve el objeto de acción
+    } else {
+      const action = { type: CREATE_DOG_FAILURE, payload: 'Failed to create dog.' };
+      dispatch(action);
+      return action;  // Devuelve el objeto de acción en caso de fallo
+    }
   } catch (error) {
-    dispatch({ type: CREATE_DOG_FAILURE, payload: error.message });
+    const action = { type: CREATE_DOG_FAILURE, payload: error.message };
+    dispatch(action);
+    return action;  // Devuelve el objeto de acción en caso de error
   }
 };

@@ -97,6 +97,7 @@ const FormPage = () => {
   
     try {
       const actionResult = await dispatch(createDog(dogData));
+      console.log('Dispatch action result:', actionResult);
       if (actionResult.type === CREATE_DOG_SUCCESS) {
         alert("Dog created successfully!");
         setFormData(initialFormState);
