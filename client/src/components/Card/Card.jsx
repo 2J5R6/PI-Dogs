@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import styles from './Card.module.css';
 
 const Card = ({ dog }) => {
-  const defaultImageUrl = 'path_to_default_image.jpg';
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardInner}>
         <div className={styles.cardFront}>
-          <img src={dog.image ? dog.image.url : defaultImageUrl} alt={dog.name} className={styles.dogImage} />
+          <img src={dog.image.url || dog.image} alt={dog.name} className={styles.dogImage} />
           <h2 className={styles.dogName}>{dog.name.toUpperCase()}</h2>
           <div className={styles.temperaments}>
             {dog.temperaments && dog.temperaments.map((temp, index) => (
