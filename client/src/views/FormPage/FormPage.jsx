@@ -96,7 +96,7 @@ const FormPage = () => {
   
     try {
       const response = await dispatch(createDog(dogData));
-      if (response.type.includes('fulfilled')) {
+      if (response.payload && response.payload.status === 201) {
         alert("Dog created successfully!");
         setFormData(initialFormState);
       } else {
