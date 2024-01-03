@@ -21,13 +21,14 @@ async function getDogById(req, res) {
             }
 
             const apiDog = apiResponse.data;
+            ApiImage = ('https://cdn2.thedogapi.com/images/')+apiDog.reference_image_id+('.jpg'); 
             dog = {
                 id: apiDog.id,
                 name: apiDog.name,
                 height: apiDog.height.metric,
                 weight: apiDog.weight.metric,
                 life_span: apiDog.life_span,
-                image: apiDog.image?.url,
+                image: ApiImage,
                 temperaments: apiDog.temperament ? apiDog.temperament.split(', ').map(temp => temp.trim()) : []
             };
         }
