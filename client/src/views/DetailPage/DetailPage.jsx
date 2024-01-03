@@ -16,7 +16,7 @@ const DetailPage = () => {
   if (error) return <div className={styles.error}>Error: {error}</div>;
   if (!currentDog) return <div>No se encontró el perro.</div>;
 
-  const { name, image, height, weight, life_span, temperaments } = currentDog;
+  const { name, image, height, weight, life_span, temperaments, description = 'A good friend' } = currentDog;
 
   return (
     <div className={styles.detailContainer}>
@@ -27,6 +27,10 @@ const DetailPage = () => {
         <p>Height: {height} cm</p>
         <p>Weight: {weight} kg</p>
         <p>Life Span: {life_span}</p>
+        <p className={styles.description}>{description.length > 100 ? `${description.substring(0, 100)}...` : description}</p>
+      {description.length > 100 && (
+        <button className={styles.moreButton} onClick={() => alert(description)}>More</button>
+      )}
         {temperaments && (
           <div className={styles.temperaments}>
             {temperaments.map((temp, index) => (

@@ -64,6 +64,33 @@
   opacity: 0.2;
 }
 
+.description {
+  font-size: 1em;
+  color: #555;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.moreButton {
+  padding: 5px 15px;
+  background-color: #ffd700; /* color de botón estilo 'gold' */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.moreButton:hover {
+  background-color: #cca700;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 @media (max-width: 768px) {
   .detailContainer {
     width: 90%;
