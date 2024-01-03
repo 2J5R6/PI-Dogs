@@ -29,6 +29,7 @@ async function getDogById(req, res) {
                 weight: apiDog.weight.metric,
                 life_span: apiDog.life_span,
                 image: ApiImage,
+                description: apiDog.description,
                 temperaments: apiDog.temperament ? apiDog.temperament.split(', ').map(temp => temp.trim()) : []
             };
         }

@@ -1,37 +1,39 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDogDetailById } from '../../redux/actions/actions'; // Asegúrate de que esta acción esté definida en tus actions de Redux
+import { getDogDetailById } from '../../redux/actions/actions'; 
 import { useParams } from 'react-router-dom';
 import styles from './DetailPage.module.css';
 
 const DetailPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const dog = useSelector((state) => state.dogs.currentDog);
-  const loading = useSelector((state) => state.dogs.loading);
-  const error = useSelector((state) => state.dogs.error);
-
+  const { currentDog, loading, error } = useSelector(state => state.dogs);
   useEffect(() => {
     dispatch(getDogDetailById(id));
   }, [dispatch, id]);
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (!currentDog) return <div>No se encontró el perro.</div>;
+
+  const { name, image, height, weight, life_span, temperaments } = currentDog;
 
   return (
     <div className={styles.detailContainer}>
-      <h1 className={styles.title}>{dog.name}</h1>
-      <img src={dog.image} alt={dog.name} className={styles.dogImage} />
+      <h1 className={styles.title}>{name}</h1>
+      <img src={image} alt={name} className={styles.dogImage} />
       <div className={styles.info}>
-        <p>ID: {dog.id}</p>
-        <p>Height: {dog.height} cm</p>
-        <p>Weight: {dog.weight} kg</p>
-        <p>Life Span: {dog.life_span}</p>
-        <div className={styles.temperaments}>
-          {dog.temperaments.map((temp) => (
-            <span key={temp} className={styles.temperament}>{temp}</span>
-          ))}
-        </div>
+        <p>ID: {id}</p>
+        <p>Height: {height} cm</p>
+        <p>Weight: {weight} kg</p>
+        <p>Life Span: {life_span}</p>
+        {temperaments && (
+          <div className={styles.temperaments}>
+            {temperaments.map((temp, index) => (
+              <span key={index} className={styles.temperament}>{temp}</span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

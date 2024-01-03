@@ -8,10 +8,14 @@ import {
   CREATE_DOG_SUCCESS,
   CREATE_DOG_FAILURE,
   GET_DOG_BY_ID_SUCCESS,
-  GET_DOG_BY_NAME_SUCCESS
+  GET_DOG_BY_NAME_SUCCESS,
+  GET_DOG_DETAIL_REQUEST,
+  GET_DOG_DETAIL_SUCCESS,
+  GET_DOG_DETAIL_FAILURE
 } from '../actions/actionTypes';
 
 const initialState = {
+  currentDog: null,
   loading: false,
   dogs: [],
   error: null
@@ -38,7 +42,12 @@ const dogsReducer = (state = initialState, action) => {
       return { ...state, loading: false, dogs: [action.payload] };
     case GET_DOG_BY_NAME_SUCCESS:
       return { ...state, loading: false, dogs: action.payload };
-    
+    case GET_DOG_DETAIL_REQUEST:
+      return { ...state, loading: true, error: null };
+    case GET_DOG_DETAIL_SUCCESS:
+      return { ...state, loading: false, currentDog: action.payload };
+    case GET_DOG_DETAIL_FAILURE:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
