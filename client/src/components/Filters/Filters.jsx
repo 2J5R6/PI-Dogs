@@ -27,13 +27,12 @@ const Filters = () => {
     setSelectedOrigin(e.target.value);
     dispatch(filterByOrigin(e.target.value));
   };
-
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
-    if (e.target.value === 'name') {
-      dispatch(sortDogsAlphabetically(e.target.value === 'name_asc' ? 'asc' : 'desc'));
-    } else if (e.target.value === 'weight') {
-      dispatch(sortByWeight(e.target.value === 'weight_asc' ? 'asc' : 'desc'));
+    if (e.target.value.includes('name')) {
+      dispatch(sortDogsAlphabetically(e.target.value.includes('asc') ? 'asc' : 'desc'));
+    } else if (e.target.value.includes('weight')) {
+      dispatch(sortByWeight(e.target.value.includes('asc') ? 'asc' : 'desc'));
     }
   };
   
@@ -87,14 +86,16 @@ const Filters = () => {
       </div>
 
       {/* Sorting Options */}
-      <div className={styles.filterItem}>
-        <label>Sort By:</label>
-        <select value={sortOrder} onChange={handleSortChange} className={styles.filterSelect}>
-          <option value="">Default</option>
-          <option value="name">Name</option>
-          <option value="weight">Weight</option>
-        </select>
-      </div>
+        <div className={styles.filterItem}>
+          <label>Sort By:</label>
+            <select value={sortOrder} onChange={handleSortChange} className={styles.filterSelect}>
+                <option value="">Default</option>
+                <option value="name_asc">Name (A-Z)</option>
+                <option value="name_desc">Name (Z-A)</option>
+                <option value="weight_asc">Weight (Ascending)</option>
+                <option value="weight_desc">Weight (Descending)</option>
+            </select>
+        </div>
 
        {/* Botón para resetear filtros */}
        <button onClick={resetFilters}>Reset Filters</button>
