@@ -18,6 +18,11 @@ import {
   GET_TEMPERAMENTS_REQUEST,
   GET_TEMPERAMENTS_SUCCESS,
   GET_TEMPERAMENTS_FAILURE,
+  FILTER_BY_TEMPERAMENT,
+  FILTER_BY_ORIGIN,
+  SORT_DOGS_ALPHABETICALLY,
+  SORT_DOGS_BY_WEIGHT,
+  SORT_DOGS_BY_LIFE_SPAN,
 } from './actionTypes';
 
 const BASE_URL = 'http://localhost:3001/DOGS';
@@ -91,4 +96,41 @@ export const createDog = (dogData) => async (dispatch) => {
     dispatch(action);
     return action;  // Devuelve el objeto de acción en caso de error
   }
+};
+
+//* Actions for Filter componenet
+
+export const filterByTemperament = (temperament) => {
+  return {
+    type: FILTER_BY_TEMPERAMENT,
+    payload: temperament,
+  };
+};
+
+export const filterByOrigin = (origin) => {
+  return {
+    type: FILTER_BY_ORIGIN,
+    payload: origin,
+  };
+};
+
+export const sortDogsAlphabetically = (order) => {
+  return {
+    type: SORT_DOGS_ALPHABETICALLY,
+    payload: order,
+  };
+};
+
+export const sortDogsByWeight = (order) => {
+  return {
+    type: SORT_DOGS_BY_WEIGHT,
+    payload: order,
+  };
+};
+
+export const sortDogsByLifeSpan = (lifeSpanRange) => {
+  return {
+    type: SORT_DOGS_BY_LIFE_SPAN,
+    payload: lifeSpanRange,
+  };
 };
