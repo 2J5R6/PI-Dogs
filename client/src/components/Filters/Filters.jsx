@@ -29,8 +29,13 @@ const Filters = () => {
 
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
-    e.target.value === 'name' ? dispatch(sortDogsAlphabetically()) : dispatch(sortByWeight());
+    if (e.target.value === 'name') {
+      dispatch(sortDogsAlphabetically(e.target.value === 'name_asc' ? 'asc' : 'desc'));
+    } else if (e.target.value === 'weight') {
+      dispatch(sortByWeight(e.target.value === 'weight_asc' ? 'asc' : 'desc'));
+    }
   };
+  
 
   const handleLifeSpanChange = (e) => {
     setLifeSpanRange(e.target.value);

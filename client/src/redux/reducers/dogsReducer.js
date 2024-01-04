@@ -47,6 +47,7 @@ const initialState = {
   dogs: [],
   error: null,
   temperaments: [],
+  filteredDogs: [], 
 };
 
 // Reductor para operaciones con razas de perros
@@ -93,14 +94,12 @@ const dogsReducer = (state = initialState, action) => {
 
 
     case FILTER_BY_ORIGIN:
-      const isFromApi = dog => typeof dog.id === 'number';
-      const isFromDb = dog => typeof dog.id === 'string';
       const filteredByOrigin = state.dogs.filter(dog => 
-        action.payload === 'api' ? isFromApi(dog) : isFromDb(dog)
+        action.payload === 'api' ? typeof dog.id === 'number' : typeof dog.id === 'string'
       );
       return {
         ...state,
-        dogs: filteredByOrigin
+        filteredDogs: filteredByOrigin
       };
 
     case SORT_DOGS_ALPHABETICALLY:
@@ -128,7 +127,8 @@ const dogsReducer = (state = initialState, action) => {
 
     case RESET_FILTERS_AND_SORT:
       return {
-        ...initialState
+        ...state,
+        filteredDogs: []
       };  
 
     
