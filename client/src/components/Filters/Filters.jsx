@@ -5,9 +5,10 @@ import {
   filterByOrigin,
   sortByWeight,
   sortDogsAlphabetically,
-  filterByLifeSpan
+  filterByLifeSpan,
+  resetFiltersAndSort
 } from '../../redux/actions/actions';
-import styles from './Filters.module.css'; // Asegúrate de tener un archivo Filters.module.css
+import styles from './Filters.module.css'; 
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,10 @@ const Filters = () => {
       <option key={temp} value={temp}>{temp}</option>
     ))
   : null;
+
+  const resetFilters = () => {
+    dispatch(resetFiltersAndSort());
+  };
 
   return (
     <div className={styles.filtersContainer}>
@@ -90,6 +95,9 @@ const Filters = () => {
           <option value="weight">Weight</option>
         </select>
       </div>
+
+       {/* Botón para resetear filtros */}
+       <button onClick={resetFilters}>Reset Filters</button>
     </div>
   );
 };

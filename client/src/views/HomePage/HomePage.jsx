@@ -9,7 +9,8 @@ import styles from './HomePage.module.css';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { dogs, loading, error } = useSelector((state) => state.dogs);
+  const { dogs, filteredDogs, loading, error } = useSelector((state) => state.dogs);
+  const dogsToDisplay = filteredDogs.length > 0 ? filteredDogs : dogs;
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
 
@@ -17,10 +18,10 @@ const HomePage = () => {
     dispatch(getAllDogs());
   }, [dispatch]);
 
-  // Obtener los perros actuales
+  // Obtener los perros actuales basados en filtrado o no
   const indexOfLastDog = currentPage * dogsPerPage;
   const indexOfFirstDog = indexOfLastDog - dogsPerPage;
-  const currentDogs = dogs.slice(indexOfFirstDog, indexOfLastDog);
+  const currentDogs = dogsToDisplay.slice(indexOfFirstDog, indexOfLastDog);
 
   // Cambia la página actual
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -29,7 +30,7 @@ const HomePage = () => {
     <div className={styles.homePageContainer}>
       <SearchBar />
       <Filters />
-      <div className={styles.contentArea}> {/* Añadir un contenedor para el contenido principal */}
+      <div className={styles.contentArea}>
         <div className={styles.cardsContainer}>
           {loading && <p>Loading...</p>}
           {error && <p>Error: {error}</p>}
@@ -37,7 +38,7 @@ const HomePage = () => {
         </div>
         <Pagination
           dogsPerPage={dogsPerPage}
-          totalDogs={dogs.length}
+          totalDogs={dogsToDisplay.length} // Asegúrate de usar dogsToDisplay para el total
           paginate={paginate}
           currentPage={currentPage}
         />
