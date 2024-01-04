@@ -30,7 +30,7 @@ async function getDogById(req, res) {
                     height: dogFromDb.height,
                     weight: dogFromDb.weight,
                     life_span: dogFromDb.life_span,
-                    image: dogFromDb.image.url,
+                    image: dogFromDb.image,
                     description: dogFromDb.description,
                     // Asegurarse de que Temperaments existe antes de mapear
                     temperaments: dogFromDb.Temperaments.map(t => t.name)
