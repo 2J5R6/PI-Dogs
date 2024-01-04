@@ -16,8 +16,29 @@ import {
   FILTER_BY_ORIGIN,
   SORT_DOGS_ALPHABETICALLY,
   SORT_DOGS_BY_WEIGHT,
-  SORT_DOGS_BY_LIFE_SPAN
+  SORT_DOGS_BY_LIFE_SPAN,
+  RESET_FILTERS_AND_SORT
 } from '../actions/actionTypes';
+
+// Función auxiliar para ordenar alfabéticamente
+const sortAlphabetically = (dogs, order) => {
+  return dogs.sort((a, b) => {
+    if (a.name < b.name) return order === 'asc' ? -1 : 1;
+    if (a.name > b.name) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+};
+
+// Función auxiliar para ordenar por peso
+const sortByWeight = (dogs, order) => {
+  return dogs.sort((a, b) => {
+    // Asegúrate de que el peso está en el formato correcto para la comparación
+    const weightA = parseInt(a.weight.metric.split(' - ')[0]);
+    const weightB = parseInt(b.weight.metric.split(' - ')[0]);
+    return order === 'asc' ? weightA - weightB : weightB - weightA;
+  });
+};
+
 
 const initialState = {
   currentDog: null,
@@ -54,27 +75,56 @@ const dogsReducer = (state = initialState, action) => {
     case GET_DOG_DETAIL_FAILURE:
       return { ...state, loading: false, error: action.payload };
     case FILTER_BY_TEMPERAMENT:
-      // Implement the logic to filter dogs by temperament
+      //* Filtra los perros por el temperamento proporcionado en action.payload
+      const filteredByTemperament = state.dogs.filter(dog =>
+        dog.temperaments.includes(action.payload)
+      );
       return {
         ...state,
-        // filteredDogs: Implement your filtering logic here
+        filteredDogs: filteredByTemperament
       };
 
+
     case FILTER_BY_ORIGIN:
-      // Implement the logic to filter dogs by origin
+      const isFromApi = dog => typeof dog.id === 'number';
+      const isFromDb = dog => typeof dog.id === 'string';
+      const filteredByOrigin = state.dogs.filter(dog => 
+        action.payload === 'api' ? isFromApi(dog) : isFromDb(dog)
+      );
       return {
         ...state,
-        // filteredDogs: Implement your filtering logic here
+        dogs: filteredByOrigin
       };
 
     case SORT_DOGS_ALPHABETICALLY:
-      // Implement the logic to sort dogs alphabetically
+      const sortedAlphabetically = sortAlphabetically([...state.dogs], action.payload);
       return {
         ...state,
-        // sortedDogs: Implement your sorting logic here
+        dogs: sortedAlphabetically
       };
 
+    case SORT_DOGS_BY_WEIGHT:
+      const sortedByWeight = sortByWeight([...state.dogs], action.payload);
+      return {
+        ...state,
+        dogs: sortedByWeight
+      };
 
+    case SORT_DOGS_BY_LIFE_SPAN:
+      // Implementa la lógica para ordenar por rango de vida
+      // Asegúrate de que el rango de vida está en el formato correcto para la comparación
+      // Por ejemplo, puedes usar un rango como "10-12" y comparar con el mínimo y máximo
+      return {
+        ...state,
+        // Implementa la lógica de ordenamiento aquí
+      };
+
+    case RESET_FILTERS_AND_SORT:
+      return {
+        ...initialState
+      };  
+
+    
     default:
       return state;
   }

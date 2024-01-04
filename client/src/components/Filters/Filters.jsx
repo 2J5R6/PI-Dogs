@@ -4,9 +4,9 @@ import {
   filterByTemperament,
   filterByOrigin,
   sortByWeight,
-  sortByName,
+  sortDogsAlphabetically,
   filterByLifeSpan
-} from '../redux/actions';
+} from '../../redux/actions/actions';
 import styles from './Filters.module.css'; // Asegúrate de tener un archivo Filters.module.css
 
 const Filters = () => {
@@ -29,7 +29,7 @@ const Filters = () => {
 
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
-    e.target.value === 'name' ? dispatch(sortByName()) : dispatch(sortByWeight());
+    e.target.value === 'name' ? dispatch(sortDogsAlphabetically()) : dispatch(sortByWeight());
   };
 
   const handleLifeSpanChange = (e) => {

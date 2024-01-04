@@ -23,6 +23,7 @@ import {
   SORT_DOGS_ALPHABETICALLY,
   SORT_DOGS_BY_WEIGHT,
   SORT_DOGS_BY_LIFE_SPAN,
+  RESET_FILTERS_AND_SORT
 } from './actionTypes';
 
 const BASE_URL = 'http://localhost:3001/DOGS';
@@ -121,16 +122,22 @@ export const sortDogsAlphabetically = (order) => {
   };
 };
 
-export const sortDogsByWeight = (order) => {
+export const sortByWeight = (order) => {
   return {
     type: SORT_DOGS_BY_WEIGHT,
     payload: order,
   };
 };
 
-export const sortDogsByLifeSpan = (lifeSpanRange) => {
+export const filterByLifeSpan = (lifeSpanRange) => {
   return {
     type: SORT_DOGS_BY_LIFE_SPAN,
     payload: lifeSpanRange,
+  };
+};
+
+export const resetFiltersAndSort = () => {
+  return {
+    type: RESET_FILTERS_AND_SORT,
   };
 };
