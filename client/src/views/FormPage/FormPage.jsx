@@ -90,7 +90,7 @@ const FormPage = () => {
       height: { metric: `${formData.heightMin} - ${formData.heightMax}` },
       weight: { metric: `${formData.weightMin} - ${formData.weightMax}` },
       life_span: `${formData.life_span} years`,
-      image: { url: formData.image },
+      image: formData.image ,
       description: formData.description,
       temperaments: formData.temperaments
     };
