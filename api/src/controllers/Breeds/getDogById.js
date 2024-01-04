@@ -33,7 +33,7 @@ async function getDogById(req, res) {
                     image: dogFromDb.image,
                     description: dogFromDb.description,
                     // Asegurarse de que Temperaments existe antes de mapear
-                    temperaments: dogFromDb.Temperaments.map(t => t.name)
+                    temperaments: dogFromDb.Temperaments ? dogFromDb.Temperaments.map(t => t.name) : []
                 };
 
                 return res.status(200).json(formattedDog);
