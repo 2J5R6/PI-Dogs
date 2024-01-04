@@ -43,7 +43,7 @@ console.log(`Temperaments added to the dog: ${temperamentInstances.map(t => t.na
         if (newDogWithTemperaments) {
             console.log(`Retrieved dog with temperaments: ${JSON.stringify(newDogWithTemperaments, null, 2)}`);
             // Estructurar la respuesta
-            const temperamentsArray = newDogWithTemperaments.Temperaments.map(t => t.name);
+            const temperamentsArray = newDogWithTemperaments.Temperaments ? newDogWithTemperaments.Temperaments.map(t => t.name) : [];
 
             res.status(201).json({
                 id: newDogWithTemperaments.id,
