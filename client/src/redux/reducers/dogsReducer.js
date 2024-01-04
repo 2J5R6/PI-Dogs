@@ -17,7 +17,8 @@ import {
   SORT_DOGS_ALPHABETICALLY,
   SORT_DOGS_BY_WEIGHT,
   SORT_DOGS_BY_LIFE_SPAN,
-  RESET_FILTERS_AND_SORT
+  RESET_FILTERS_AND_SORT,
+  GET_TEMPERAMENTS_SUCCESS
 } from '../actions/actionTypes';
 
 // Función auxiliar para ordenar alfabéticamente
@@ -44,7 +45,8 @@ const initialState = {
   currentDog: null,
   loading: false,
   dogs: [],
-  error: null
+  error: null,
+  temperaments: [],
 };
 
 // Reductor para operaciones con razas de perros
@@ -74,6 +76,11 @@ const dogsReducer = (state = initialState, action) => {
       return { ...state, loading: false, currentDog: action.payload };
     case GET_DOG_DETAIL_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    case GET_TEMPERAMENTS_SUCCESS:
+      return {
+          ...state,
+          temperaments: action.payload, // Esto debe ser un array
+        };
     case FILTER_BY_TEMPERAMENT:
       //* Filtra los perros por el temperamento proporcionado en action.payload
       const filteredByTemperament = state.dogs.filter(dog =>

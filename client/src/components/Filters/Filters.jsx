@@ -37,6 +37,12 @@ const Filters = () => {
     dispatch(filterByLifeSpan(e.target.value));
   };
 
+  const temperamentOptions = temperaments && Array.isArray(temperaments)
+  ? temperaments.map((temp) => (
+      <option key={temp} value={temp}>{temp}</option>
+    ))
+  : null;
+
   return (
     <div className={styles.filtersContainer}>
       {/* Temperament Filter */}
@@ -44,9 +50,7 @@ const Filters = () => {
         <label>Temperament:</label>
         <select value={selectedTemperament} onChange={handleTemperamentChange} className={styles.filterSelect}>
           <option value="">All Temperaments</option>
-          {temperaments.map((temp) => (
-            <option key={temp} value={temp}>{temp}</option>
-          ))}
+          {temperamentOptions}
         </select>
       </div>
 
