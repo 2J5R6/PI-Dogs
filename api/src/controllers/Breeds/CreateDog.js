@@ -24,6 +24,9 @@ async function CreateDog(req, res) {
             );
 
             await newDog.addTemperaments(temperamentInstances);
+
+            // Imprimir para depuración
+console.log(`Temperaments added to the dog: ${temperamentInstances.map(t => t.name).join(', ')}`);
         }
 
         // Recuperar el perro recién creado con sus temperamentos asociados
@@ -38,19 +41,22 @@ async function CreateDog(req, res) {
         });
 
         if (newDogWithTemperaments) {
+            console.log(`Retrieved dog with temperaments: ${JSON.stringify(newDogWithTemperaments, null, 2)}`);
             // Estructurar la respuesta
-            const formattedDog = newDogWithTemperaments.toJSON();
+            const temperamentsArray = newDogWithTemperaments.Temperaments.map(t => t.name);
+
             res.status(201).json({
-                id: formattedDog.id,
-                name: formattedDog.name,
-                height: formattedDog.height,
-                weight: formattedDog.weight,
-                life_span: formattedDog.life_span,
-                image: formattedDog.image, // Asegúrate de que 'image' sea una URL
-                description: formattedDog.description,
-                temperaments: formattedDog.Temperaments ? formattedDog.Temperaments.map(t => t.name) : []
+                id: newDogWithTemperaments.id,
+                name: newDogWithTemperaments.name,
+                height: newDogWithTemperaments.height,
+                weight: newDogWithTemperaments.weight,
+                life_span: newDogWithTemperaments.life_span,
+                image: newDogWithTemperaments.image,
+                description: newDogWithTemperaments.description,
+                temperaments: temperamentsArray
             });
         } else {
+            console.log("No dog was found after creation.");
             // Enviar un error si no se pudo recuperar el perro con temperamentos
             res.status(404).json({ error: "Dog created but not found with temperaments." });
         }
