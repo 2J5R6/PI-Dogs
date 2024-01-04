@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllDogs } from '../../redux/actions/actions';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Cards from '../../components/Cards/Cards';
-// import Filters from '../../components/Filters/Filters';
+import Filters from '../../components/Filters/Filters';
 import Pagination from '../../components/Pagination/Pagination';
 import styles from './HomePage.module.css';
 
@@ -28,7 +28,7 @@ const HomePage = () => {
   return (
     <div className={styles.homePageContainer}>
       <SearchBar />
-      {/* <Filters /> */}
+      <Filters />
       <div className={styles.contentArea}> {/* Añadir un contenedor para el contenido principal */}
         <div className={styles.cardsContainer}>
           {loading && <p>Loading...</p>}
