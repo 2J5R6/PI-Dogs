@@ -24,7 +24,7 @@ function validateCreateDog(req, res, next) {
     }
 
     // Validación opcional para 'image' y 'description'
-    if (image && typeof image.url !== 'string') {
+    if (image && typeof image !== 'string') {
         return res.status(400).json({ error: "Invalid URL for image." });
     }
 

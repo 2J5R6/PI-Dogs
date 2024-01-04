@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     image: {
-      type: DataTypes.JSON, // Imagen como objeto JSON
+      type: DataTypes.STRING, // Imagen como objeto JSON
       allowNull: true
     },
     name: {
