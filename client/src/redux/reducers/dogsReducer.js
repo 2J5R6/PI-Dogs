@@ -63,9 +63,10 @@ const dogsReducer = (state = initialState, action) => {
           temperaments: action.payload, // Esto debe ser un array
         };
     case FILTER_BY_TEMPERAMENT:
-      //* Filtra los perros por el temperamento proporcionado en action.payload
       const filteredByTemperament = state.dogs.filter(dog => 
-        dog.temperaments.some(temp => temp.name === action.payload)
+        dog.temperaments && dog.temperaments.some(temp => 
+          typeof temp === 'object' ? temp.name === action.payload : temp === action.payload
+        )
       );
       return { ...state, filteredDogs: filteredByTemperament };
 

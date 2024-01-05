@@ -12,7 +12,7 @@ import styles from './Filters.module.css';
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const temperaments = useSelector((state) => state.temperaments);
+  const temperaments = useSelector((state) => state.dogs.temperaments);
   const [selectedTemperament, setSelectedTemperament] = useState('');
   const [selectedOrigin, setSelectedOrigin] = useState('');
   const [sortOrder, setSortOrder] = useState('');
@@ -27,6 +27,7 @@ const Filters = () => {
     setSelectedOrigin(e.target.value);
     dispatch(filterByOrigin(e.target.value));
   };
+
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
     if (e.target.value.includes('name')) {
@@ -35,20 +36,22 @@ const Filters = () => {
       dispatch(sortByWeight(e.target.value.includes('asc') ? 'asc' : 'desc'));
     }
   };
-  
 
   const handleLifeSpanChange = (e) => {
     setLifeSpanRange(e.target.value);
     dispatch(filterByLifeSpan(e.target.value));
   };
 
-  const temperamentOptions = temperaments && Array.isArray(temperaments)
-  ? temperaments.map((temp) => (
-      <option key={temp} value={temp}>{temp}</option>
-    ))
-  : null;
+  // Asegúrate de que las opciones de temperamento se muestren correctamente
+  const temperamentOptions = temperaments.map((temp) => (
+    <option key={temp.id} value={temp.name}>{temp.name}</option>
+  ));
 
   const resetFilters = () => {
+    setSelectedTemperament('');
+    setSelectedOrigin('');
+    setSortOrder('');
+    setLifeSpanRange('');
     dispatch(resetFiltersAndSort());
   };
 
@@ -86,19 +89,19 @@ const Filters = () => {
       </div>
 
       {/* Sorting Options */}
-        <div className={styles.filterItem}>
-          <label>Sort By:</label>
-            <select value={sortOrder} onChange={handleSortChange} className={styles.filterSelect}>
-                <option value="">Default</option>
-                <option value="name_asc">Name (A-Z)</option>
-                <option value="name_desc">Name (Z-A)</option>
-                <option value="weight_asc">Weight (Ascending)</option>
-                <option value="weight_desc">Weight (Descending)</option>
-            </select>
-        </div>
+      <div className={styles.filterItem}>
+        <label>Sort By:</label>
+        <select value={sortOrder} onChange={handleSortChange} className={styles.filterSelect}>
+          <option value="">Default</option>
+          <option value="name_asc">Name (A-Z)</option>
+          <option value="name_desc">Name (Z-A)</option>
+          <option value="weight_asc">Weight (Ascending)</option>
+          <option value="weight_desc">Weight (Descending)</option>
+        </select>
+      </div>
 
-       {/* Botón para resetear filtros */}
-       <button onClick={resetFilters}>Reset Filters</button>
+      {/* Reset Filters Button */}
+      <button onClick={resetFilters}>Reset Filters</button>
     </div>
   );
 };
