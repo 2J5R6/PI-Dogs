@@ -30,7 +30,7 @@ async function getDogById(req, res) {
                     life_span: dogFromDb.life_span,
                     image: dogFromDb.image,
                     description: dogFromDb.description,
-                    temperaments: dogFromDb.Temperaments ? dogFromDb.Temperaments.map(t => t.name) : []
+                    temperaments: dogFromDb.temperaments ? dogFromDb.temperaments.map(t => t.name) : []
                 });
             } else {
                 return res.status(404).json({ message: "No dog breed found with the given ID." });
