@@ -90,20 +90,26 @@ const dogsReducer = (state = initialState, action) => {
       return { ...state, dogs: sortedAlphabetically };
 
     case SORT_DOGS_BY_WEIGHT:
-      const sortedByWeight = state.dogs
-        .filter(dog => dog.weight && dog.weight.metric)
-        .sort((a, b) => {
-          const weightA = parseInt(a.weight.metric.split(' - ')[0]);
-          const weightB = parseInt(b.weight.metric.split(' - ')[0]);
-          return action.payload === 'asc' ? weightA - weightB : weightB - weightA;
-        });
+      const sortedByWeight = [...state.dogs].sort((a, b) => {
+        // Extraer el peso mínimo de los rangos de peso
+        const getMinWeight = (weight) => {
+          if (!weight || !weight.metric) return 0;
+          const [minWeight] = weight.metric.split(' - ').map(num => parseFloat(num));
+          return minWeight || 0;
+        };
+
+        const weightA = getMinWeight(a.weight);
+        const weightB = getMinWeight(b.weight);
+
+        return action.payload === 'asc' ? weightA - weightB : weightB - weightA;
+      });
       return { ...state, dogs: sortedByWeight };
 
     case SORT_DOGS_BY_LIFE_SPAN:
       const range = action.payload.split('-').map(Number);
       const filteredByLifeSpan = state.dogs.filter(dog => {
         const lifeSpanYears = dog.life_span.match(/\d+/g).map(Number);
-        return lifeSpanYears.some(year => year >= range[0] && year <= range[1]);
+        return lifeSpanYears.some(year => year >= range[0] && year <= (range[1] || range[0]));
       });
       return { ...state, dogs: filteredByLifeSpan };
 
