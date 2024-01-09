@@ -53,24 +53,55 @@ const Filters = () => {
 
 
   const resetFilters = () => {
-    setSelectedTemperaments('');
+    setSelectedTemperaments([]); // Cambiar a un array vacío
     setSelectedOrigin('');
     setSortOrder('');
     setLifeSpanRange('');
     dispatch(resetFiltersAndSort());
   };
+  
+
+  const removeTemperament = (tempToRemove) => {
+    // Filtra el temperamento que se quiere eliminar
+    const updatedTemperaments = selectedTemperaments.filter(temp => temp !== tempToRemove);
+    setSelectedTemperaments(updatedTemperaments);
+    // No olvides actualizar el store de Redux si es necesario
+    dispatch(filterByTemperament(updatedTemperaments));
+  };
+  
+
 
   return (
     <div className={styles.filtersContainer}>
+      {/* ...otros filtros... */}
       {/* Temperament Filter */}
       <div className={styles.filterItem}>
-        <label>Temperament:</label>
-        <select multiple={true} value={selectedTemperaments} onChange={handleTemperamentChange} className={styles.filterSelect}>
-          <option value="">All Temperaments</option>
+        <label htmlFor="temperament-select">Temperament:</label>
+        <select
+          multiple={true}
+          value={selectedTemperaments}
+          onChange={handleTemperamentChange}
+          className={styles.filterSelect}
+          id="temperament-select"
+        >
           {temperaments.map((temp) => (
             <option key={temp.id} value={temp.name}>{temp.name}</option>
           ))}
         </select>
+        {/* Etiquetas de temperamentos seleccionados */}
+        <div className={styles.selectedTemperaments}>
+          {selectedTemperaments.map((temp, index) => (
+            <span key={index} className={styles.temperamentTag}>
+              {temp}
+              <button
+                onClick={() => removeTemperament(temp)}
+                className={styles.removeTagButton}
+              >
+                &times;
+              </button>
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Origin Filter */}
