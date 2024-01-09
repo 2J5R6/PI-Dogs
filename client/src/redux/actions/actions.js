@@ -145,7 +145,7 @@ export const resetFiltersAndSort = () => {
 
 export const applyFilters = () => {
   return (dispatch, getState) => {
-    let { dogs, filterTemperaments, filterOrigin, weightOrder, alphabetOrder, lifeSpanRange } = getState().dogs;
+    let { dogs, filterTemperaments, filterOrigin, sortOrder, lifeSpanRange } = getState().dogs;
     let filteredDogs = dogs;
 
     // Aplicar filtros de temperamento
@@ -168,24 +168,22 @@ export const applyFilters = () => {
     if (lifeSpanRange) {
       const [minLifeSpan, maxLifeSpan] = lifeSpanRange.split('-').map(Number);
       filteredDogs = filteredDogs.filter(dog => {
-        const dogLifeSpan = dog.life_span.split('-')[0];
+        const dogLifeSpan = parseInt(dog.life_span.split(' ')[0]);
         return dogLifeSpan >= minLifeSpan && (!maxLifeSpan || dogLifeSpan <= maxLifeSpan);
       });
     }
 
-    // Aplicar ordenamiento alfabético
-    if (alphabetOrder) {
+    // Aplicar ordenamiento
+    if (sortOrder) {
       filteredDogs.sort((a, b) => {
-        return alphabetOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-      });
-    }
-
-    // Aplicar ordenamiento por peso
-    if (weightOrder) {
-      filteredDogs.sort((a, b) => {
-        const weightA = parseInt(a.weight.metric.split(' - ')[0]);
-        const weightB = parseInt(b.weight.metric.split(' - ')[0]);
-        return weightOrder === 'asc' ? weightA - weightB : weightB - weightA;
+        // Separar lógica para ordenamiento alfabético y por peso
+        if (sortOrder.includes('name')) {
+          return sortOrder === 'name_asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        } else if (sortOrder.includes('weight')) {
+          const weightA = parseInt(a.weight.metric.split(' - ')[0]);
+          const weightB = parseInt(b.weight.metric.split(' - ')[0]);
+          return sortOrder === 'weight_asc' ? weightA - weightB : weightB - weightA;
+        }
       });
     }
 
