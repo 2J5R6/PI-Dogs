@@ -29,6 +29,10 @@ const initialState = {
   error: null,
   temperaments: [],
   filteredDogs: [], 
+  filterTemperaments: [],
+  filterOrigin: null,
+  sortOrder: '',
+  lifeSpanRange: '',
 };
 
 // Reductor para operaciones con razas de perros
@@ -63,65 +67,75 @@ const dogsReducer = (state = initialState, action) => {
           ...state,
           temperaments: action.payload, // Esto debe ser un array
         };
+//* Inicio Filtros
     case FILTER_BY_TEMPERAMENT:
-      const filteredByTemperament = state.dogs.filter(dog => 
-        dog.temperaments && dog.temperaments.some(temp => 
-          typeof temp === 'object' ? temp.name === action.payload : temp === action.payload
-        )
-      );
-      return { ...state, filteredDogs: filteredByTemperament };
-
+      // Actualiza el estado con el array de temperamentos seleccionados
+      return { ...state, filterTemperaments: action.payload };
 
     case FILTER_BY_ORIGIN:
-      const filteredByOrigin = state.dogs.filter(dog => 
-        action.payload === 'api' ? typeof dog.id === 'number' : typeof dog.id === 'string'
-      );
-      return {
-        ...state,
-        filteredDogs: filteredByOrigin
-      };
+      // Actualiza el estado con el origen seleccionado
+      return { ...state, filterOrigin: action.payload };
 
     case SORT_DOGS_ALPHABETICALLY:
-      const sortedAlphabetically = [...state.dogs].sort((a, b) => {
-        if (action.payload === 'asc') {
-          return a.name.localeCompare(b.name);
-        }
-        return b.name.localeCompare(a.name);
-      });
-      return { ...state, dogs: sortedAlphabetically };
+      // Actualiza el estado con el orden alfabético seleccionado
+      return { ...state, sortOrder: action.payload };
 
     case SORT_DOGS_BY_WEIGHT:
-      const sortedByWeight = [...state.dogs].sort((a, b) => {
-        // Extraer el peso mínimo de los rangos de peso
-        const getMinWeight = (weight) => {
-          if (!weight || !weight.metric) return 0;
-          const [minWeight] = weight.metric.split(' - ').map(num => parseFloat(num));
-          return minWeight || 0;
-        };
-
-        const weightA = getMinWeight(a.weight);
-        const weightB = getMinWeight(b.weight);
-
-        return action.payload === 'asc' ? weightA - weightB : weightB - weightA;
-      });
-      return { ...state, dogs: sortedByWeight };
+      // Actualiza el estado con el orden de peso seleccionado
+      return { ...state, sortOrder: action.payload };
 
     case SORT_DOGS_BY_LIFE_SPAN:
-      const range = action.payload.split('-').map(Number);
-      const filteredByLifeSpan = state.dogs.filter(dog => {
-        const lifeSpanYears = dog.life_span.match(/\d+/g).map(Number);
-        return lifeSpanYears.some(year => year >= range[0] && year <= (range[1] || range[0]));
-      });
-      return { ...state, dogs: filteredByLifeSpan };
+      // Actualiza el estado con el rango de vida seleccionado
+      return { ...state, lifeSpanRange: action.payload };
 
     case RESET_FILTERS_AND_SORT:
+      // Restablece los filtros y ordenamientos a su estado inicial
       return {
           ...state,
-          filteredDogs: []
-        };  
+          filteredDogs: [],
+          filterTemperaments: [],
+          filterOrigin: null,
+          sortOrder: '',
+          lifeSpanRange: '',
+      };
 
     case APPLY_FILTERS:
-      return { ...state, filteredDogs: action.payload };
+      // Aplica todos los filtros almacenados en el estado
+      let filteredDogs = state.dogs;
+
+      // Filtrar por temperamentos
+      if (state.filterTemperaments.length) {
+        filteredDogs = filteredDogs.filter(dog =>
+          state.filterTemperaments.every(temp =>
+            dog.temperaments.map(t => t.name).includes(temp)
+          )
+        );
+      }
+
+      // Filtrar por origen
+      if (state.filterOrigin) {
+        filteredDogs = filteredDogs.filter(dog =>
+          state.filterOrigin === 'api' ? typeof dog.id === 'number' : typeof dog.id === 'string'
+        );
+      }
+
+      // Ordenar por peso o alfabéticamente
+      if (state.sortOrder) {
+        filteredDogs.sort((a, b) => {
+          // Comparación basada en el sortOrder
+        });
+      }
+
+      // Filtrar por rango de vida
+      if (state.lifeSpanRange) {
+        const [min, max] = state.lifeSpanRange.split('-').map(Number);
+        filteredDogs = filteredDogs.filter(dog => {
+          const lifeSpan = parseInt(dog.life_span.split(' ')[0]);
+          return lifeSpan >= min && (!max || lifeSpan <= max);
+        });
+      }
+
+      return { ...state, filteredDogs };
     
     default:
       return state;
