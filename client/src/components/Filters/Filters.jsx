@@ -57,7 +57,7 @@ const Filters = () => {
   ));
 
   const resetFilters = () => {
-    setSelectedTemperament('');
+    setSelectedTemperaments('');
     setSelectedOrigin('');
     setSortOrder('');
     setLifeSpanRange('');
@@ -69,7 +69,7 @@ const Filters = () => {
       {/* Temperament Filter */}
       <div className={styles.filterItem}>
         <label>Temperament:</label>
-        <select value={selectedTemperament} onChange={handleTemperamentChange} className={styles.filterSelect}>
+        <select value={selectedTemperaments} onChange={handleTemperamentChange} className={styles.filterSelect}>
           <option value="">All Temperaments</option>
           {temperamentOptions}
         </select>
