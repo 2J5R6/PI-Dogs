@@ -16,6 +16,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getAllDogs());
+    console.log('Initial dogs:', dogs);
   }, [dispatch]);
 
   // Obtener los perros actuales basados en filtrado o no
@@ -25,6 +26,11 @@ const HomePage = () => {
 
   // Cambia la página actual
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  useEffect(() => {
+    // Add a console log to check the filtered and sorted dogs array
+    console.log('Filtered and sorted dogs:', filteredDogs);
+  }, [filteredDogs]);
 
   return (
     <div className={styles.homePageContainer}>
