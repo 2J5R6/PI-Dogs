@@ -189,10 +189,10 @@ export const applyFilters = () => {
       });
     } else if (sortOrder.includes('weight')) {
       filteredDogs.sort((a, b) => {
-        // Parsear el peso para obtener el valor numérico mínimo en caso de rango
+        // Parsear el peso para obtener el promedio en caso de rango
         const parseWeight = (weight) => {
-          const weightParts = weight.split(' - ');
-          return parseInt(weightParts[0]);
+          const weightParts = weight.split(' - ').map(Number);
+          return weightParts.length === 2 ? (weightParts[0] + weightParts[1]) / 2 : weightParts[0];
         };
     
         const weightA = parseWeight(a.weight);
@@ -200,6 +200,7 @@ export const applyFilters = () => {
         return sortOrder === 'weight_asc' ? weightA - weightB : weightB - weightA;
       });
     }
+    
 
     // Actualizar el estado con los perros filtrados
     dispatch({ type: APPLY_FILTERS, payload: filteredDogs });

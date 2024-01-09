@@ -71,15 +71,6 @@ const Filters = () => {
   };
   
 
-  const removeTemperament = (tempToRemove) => {
-    // Filtra el temperamento que se quiere eliminar
-    const updatedTemperaments = selectedTemperaments.filter(temp => temp !== tempToRemove);
-    setSelectedTemperaments(updatedTemperaments);
-    // No olvides actualizar el store de Redux si es necesario
-    dispatch(filterByTemperament(updatedTemperaments));
-  };
-  
-
 
   return (
     <div className={styles.filtersContainer}>
