@@ -100,42 +100,7 @@ const dogsReducer = (state = initialState, action) => {
       };
 
     case APPLY_FILTERS:
-      // Aplica todos los filtros almacenados en el estado
-      let filteredDogs = state.dogs;
-
-      // Filtrar por temperamentos
-      if (state.filterTemperaments.length) {
-        filteredDogs = filteredDogs.filter(dog =>
-          state.filterTemperaments.every(temp =>
-            dog.temperaments.map(t => t.name).includes(temp)
-          )
-        );
-      }
-
-      // Filtrar por origen
-      if (state.filterOrigin) {
-        filteredDogs = filteredDogs.filter(dog =>
-          state.filterOrigin === 'api' ? typeof dog.id === 'number' : typeof dog.id === 'string'
-        );
-      }
-
-      // Ordenar por peso o alfabéticamente
-      if (state.sortOrder) {
-        filteredDogs.sort((a, b) => {
-          // Comparación basada en el sortOrder
-        });
-      }
-
-      // Filtrar por rango de vida
-      if (state.lifeSpanRange) {
-        const [min, max] = state.lifeSpanRange.split('-').map(Number);
-        filteredDogs = filteredDogs.filter(dog => {
-          const lifeSpan = parseInt(dog.life_span.split(' ')[0]);
-          return lifeSpan >= min && (!max || lifeSpan <= max);
-        });
-      }
-
-      return { ...state, filteredDogs };
+      return { ...state, filteredDogs: action.payload };
     
     default:
       return state;
