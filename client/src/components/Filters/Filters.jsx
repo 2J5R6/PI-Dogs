@@ -15,7 +15,6 @@ const Filters = () => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.dogs.temperaments);
 
-   // Cambia esto para manejar un array de temperamentos seleccionados
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState('');
   const [sortOrder, setSortOrder] = useState('');
@@ -25,11 +24,18 @@ const Filters = () => {
     dispatch(applyFilters());
   };
 
-  const handleTemperamentChange = (e) => {
-    const selectedOptions = Array.from(e.target.options)
-                                 .filter(option => option.selected)
-                                 .map(option => option.value);
-    setSelectedTemperaments(selectedOptions);
+  const handleTemperamentChange = (temperament) => {
+    const currentIndex = selectedTemperaments.indexOf(temperament);
+    const newSelectedTemperaments = [...selectedTemperaments];
+
+    if (currentIndex === -1) {
+      newSelectedTemperaments.push(temperament);
+    } else {
+      newSelectedTemperaments.splice(currentIndex, 1);
+    }
+
+    setSelectedTemperaments(newSelectedTemperaments);
+    dispatch(filterByTemperament(newSelectedTemperaments));
   };
 
   useEffect(() => {
@@ -77,34 +83,23 @@ const Filters = () => {
 
   return (
     <div className={styles.filtersContainer}>
-      {/* ...otros filtros... */}
-      {/* Temperament Filter */}
-      <div className={styles.filterItem}>
+       {/* Temperament Filter */}
+       <div className={styles.filterItem}>
         <label htmlFor="temperament-select">Temperament:</label>
-        <select
-          multiple={true}
-          value={selectedTemperaments}
-          onChange={handleTemperamentChange}
-          className={styles.filterSelect}
-          id="temperament-select"
-        >
-          {temperaments.map((temp) => (
-            <option key={temp.id} value={temp.name}>{temp.name}</option>
-          ))}
-        </select>
-        {/* Etiquetas de temperamentos seleccionados */}
-        <div className={styles.selectedTemperaments}>
-          {selectedTemperaments.map((temp, index) => (
-            <span key={index} className={styles.temperamentTag}>
-              {temp}
-              <button
-                onClick={() => removeTemperament(temp)}
-                className={styles.removeTagButton}
+        <div className={styles.dropdown}>
+          <button className={styles.dropbtn}>Select Temperaments</button>
+          <div className={styles.dropdownContent}>
+            {temperaments.map((temp) => (
+              <a 
+                key={temp.id}
+                href="#!"
+                onClick={() => handleTemperamentChange(temp.name)}
+                className={selectedTemperaments.includes(temp.name) ? styles.selected : ''}
               >
-                &times;
-              </button>
-            </span>
-          ))}
+                {temp.name}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
