@@ -150,11 +150,19 @@ export const applyFilters = () => {
 
     // Aplicar filtros de temperamento
     if (filterTemperaments.length) {
-      filteredDogs = filteredDogs.filter(dog =>
-        dog.temperaments.some(temp =>
-          filterTemperaments.includes(temp.name)
-        )
-      );
+      filteredDogs = filteredDogs.filter(dog => {
+        // Verificar si los temperamentos son un array de strings (API) o de objetos (DB)
+        if (dog.temperaments && dog.temperaments.length > 0) {
+          if (typeof dog.temperaments[0] === 'string') {
+            // Caso de la API: array de strings
+            return dog.temperaments.some(temp => filterTemperaments.includes(temp));
+          } else {
+            // Caso de la base de datos: array de objetos
+            return dog.temperaments.some(temp => filterTemperaments.includes(temp.name));
+          }
+        }
+        return false;
+      });
     }
 
     // Aplicar filtro de origen
