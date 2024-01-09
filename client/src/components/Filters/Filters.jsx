@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   filterByTemperament,
@@ -29,8 +29,11 @@ const Filters = () => {
     // Actualiza esto para manejar un array de temperamentos seleccionados
     const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
     setSelectedTemperaments(selectedOptions);
-    dispatch(filterByTemperament(selectedOptions));
   };
+
+  useEffect(() => {
+    dispatch(filterByTemperament(selectedTemperaments));
+  }, [selectedTemperaments, dispatch]);
 
   const handleOriginChange = (e) => {
     setSelectedOrigin(e.target.value);

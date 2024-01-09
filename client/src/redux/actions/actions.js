@@ -103,6 +103,7 @@ export const createDog = (dogData) => async (dispatch) => {
 //* Actions for Filter componenet
 
 export const filterByTemperament = (temperaments) => {
+  console.log("Dispatching Filter By Temperament with:", temperaments);
   return {
     type: FILTER_BY_TEMPERAMENT,
     payload: temperaments,
