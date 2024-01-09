@@ -23,7 +23,8 @@ import {
   SORT_DOGS_ALPHABETICALLY,
   SORT_DOGS_BY_WEIGHT,
   SORT_DOGS_BY_LIFE_SPAN,
-  RESET_FILTERS_AND_SORT
+  RESET_FILTERS_AND_SORT,
+  APPLY_FILTERS
 } from './actionTypes';
 
 const BASE_URL = 'http://localhost:3001/DOGS';
@@ -101,10 +102,10 @@ export const createDog = (dogData) => async (dispatch) => {
 
 //* Actions for Filter componenet
 
-export const filterByTemperament = (temperament) => {
+export const filterByTemperament = (temperaments) => {
   return {
     type: FILTER_BY_TEMPERAMENT,
-    payload: temperament,
+    payload: temperaments,
   };
 };
 
@@ -139,5 +140,56 @@ export const filterByLifeSpan = (lifeSpanRange) => {
 export const resetFiltersAndSort = () => {
   return {
     type: RESET_FILTERS_AND_SORT,
+  };
+};
+
+export const applyFilters = () => {
+  return (dispatch, getState) => {
+    let { dogs, filterTemperaments, filterOrigin, weightOrder, alphabetOrder, lifeSpanRange } = getState().dogs;
+    let filteredDogs = dogs;
+
+    // Aplicar filtros de temperamento
+    if (filterTemperaments.length) {
+      filteredDogs = filteredDogs.filter(dog =>
+        dog.temperaments.some(temp =>
+          filterTemperaments.includes(temp.name)
+        )
+      );
+    }
+
+    // Aplicar filtro de origen
+    if (filterOrigin) {
+      filteredDogs = filteredDogs.filter(dog =>
+        filterOrigin === 'api' ? !isNaN(dog.id) : isNaN(dog.id)
+      );
+    }
+
+    // Aplicar filtro de vida
+    if (lifeSpanRange) {
+      const [minLifeSpan, maxLifeSpan] = lifeSpanRange.split('-').map(Number);
+      filteredDogs = filteredDogs.filter(dog => {
+        const dogLifeSpan = dog.life_span.split('-')[0];
+        return dogLifeSpan >= minLifeSpan && (!maxLifeSpan || dogLifeSpan <= maxLifeSpan);
+      });
+    }
+
+    // Aplicar ordenamiento alfabético
+    if (alphabetOrder) {
+      filteredDogs.sort((a, b) => {
+        return alphabetOrder === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      });
+    }
+
+    // Aplicar ordenamiento por peso
+    if (weightOrder) {
+      filteredDogs.sort((a, b) => {
+        const weightA = parseInt(a.weight.metric.split(' - ')[0]);
+        const weightB = parseInt(b.weight.metric.split(' - ')[0]);
+        return weightOrder === 'asc' ? weightA - weightB : weightB - weightA;
+      });
+    }
+
+    // Actualizar el estado con los perros filtrados
+    dispatch({ type: APPLY_FILTERS, payload: filteredDogs });
   };
 };

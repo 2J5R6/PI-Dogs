@@ -18,7 +18,8 @@ import {
   SORT_DOGS_BY_WEIGHT,
   SORT_DOGS_BY_LIFE_SPAN,
   RESET_FILTERS_AND_SORT,
-  GET_TEMPERAMENTS_SUCCESS
+  GET_TEMPERAMENTS_SUCCESS,
+  APPLY_FILTERS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -113,12 +114,14 @@ const dogsReducer = (state = initialState, action) => {
       });
       return { ...state, dogs: filteredByLifeSpan };
 
-      case RESET_FILTERS_AND_SORT:
-        return {
+    case RESET_FILTERS_AND_SORT:
+      return {
           ...state,
           filteredDogs: []
         };  
 
+    case APPLY_FILTERS:
+      return { ...state, filteredDogs: action.payload };
     
     default:
       return state;

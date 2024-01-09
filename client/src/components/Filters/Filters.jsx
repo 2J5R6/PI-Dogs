@@ -6,21 +6,30 @@ import {
   sortByWeight,
   sortDogsAlphabetically,
   filterByLifeSpan,
-  resetFiltersAndSort
+  resetFiltersAndSort,
+  applyFilters
 } from '../../redux/actions/actions';
 import styles from './Filters.module.css'; 
 
 const Filters = () => {
   const dispatch = useDispatch();
   const temperaments = useSelector((state) => state.dogs.temperaments);
-  const [selectedTemperament, setSelectedTemperament] = useState('');
+
+   // Cambia esto para manejar un array de temperamentos seleccionados
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState('');
   const [sortOrder, setSortOrder] = useState('');
   const [lifeSpanRange, setLifeSpanRange] = useState('');
 
+  const handleApplyFilters = () => {
+    dispatch(applyFilters());
+  };
+
   const handleTemperamentChange = (e) => {
-    setSelectedTemperament(e.target.value);
-    dispatch(filterByTemperament(e.target.value));
+    // Actualiza esto para manejar un array de temperamentos seleccionados
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelectedTemperaments(selectedOptions);
+    dispatch(filterByTemperament(selectedOptions));
   };
 
   const handleOriginChange = (e) => {
@@ -102,6 +111,7 @@ const Filters = () => {
 
       {/* Reset Filters Button */}
       <button onClick={resetFilters}>Reset Filters</button>
+      <button onClick={handleApplyFilters}>Apply Filters</button>
     </div>
   );
 };
