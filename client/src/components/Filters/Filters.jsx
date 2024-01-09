@@ -26,8 +26,9 @@ const Filters = () => {
   };
 
   const handleTemperamentChange = (e) => {
-    // Actualiza esto para manejar un array de temperamentos seleccionados
-    const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    const selectedOptions = Array.from(e.target.options)
+                                 .filter(option => option.selected)
+                                 .map(option => option.value);
     setSelectedTemperaments(selectedOptions);
   };
 
