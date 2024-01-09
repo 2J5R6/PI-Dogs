@@ -183,16 +183,21 @@ export const applyFilters = () => {
     }
 
     // Aplicar ordenamiento
-    if (sortOrder) {
+    if (sortOrder.includes('name')) {
       filteredDogs.sort((a, b) => {
-        // Separar lógica para ordenamiento alfabético y por peso
-        if (sortOrder.includes('name')) {
-          return sortOrder === 'name_asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-        } else if (sortOrder.includes('weight')) {
-          const weightA = parseInt(a.weight.metric.split(' - ')[0]);
-          const weightB = parseInt(b.weight.metric.split(' - ')[0]);
-          return sortOrder === 'weight_asc' ? weightA - weightB : weightB - weightA;
-        }
+        return sortOrder === 'name_asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+      });
+    } else if (sortOrder.includes('weight')) {
+      filteredDogs.sort((a, b) => {
+        // Parsear el peso para obtener el valor numérico mínimo en caso de rango
+        const parseWeight = (weight) => {
+          const weightParts = weight.split(' - ');
+          return parseInt(weightParts[0]);
+        };
+    
+        const weightA = parseWeight(a.weight);
+        const weightB = parseWeight(b.weight);
+        return sortOrder === 'weight_asc' ? weightA - weightB : weightB - weightA;
       });
     }
 
