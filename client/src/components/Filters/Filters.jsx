@@ -51,10 +51,6 @@ const Filters = () => {
     dispatch(filterByLifeSpan(e.target.value));
   };
 
-  // Asegúrate de que las opciones de temperamento se muestren correctamente
-  const temperamentOptions = temperaments.map((temp) => (
-    <option key={temp.id} value={temp.name}>{temp.name}</option>
-  ));
 
   const resetFilters = () => {
     setSelectedTemperaments('');
@@ -69,9 +65,11 @@ const Filters = () => {
       {/* Temperament Filter */}
       <div className={styles.filterItem}>
         <label>Temperament:</label>
-        <select value={selectedTemperaments} onChange={handleTemperamentChange} className={styles.filterSelect}>
+        <select multiple={true} value={selectedTemperaments} onChange={handleTemperamentChange} className={styles.filterSelect}>
           <option value="">All Temperaments</option>
-          {temperamentOptions}
+          {temperaments.map((temp) => (
+            <option key={temp.id} value={temp.name}>{temp.name}</option>
+          ))}
         </select>
       </div>
 
