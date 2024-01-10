@@ -14,10 +14,7 @@ const HomePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
 
-  useEffect(() => {
-    dispatch(getAllDogs());
-    console.log('Initial dogs:', dogs);
-  }, [dispatch]);
+  
 
   // Obtener los perros actuales basados en filtrado o no
   const indexOfLastDog = currentPage * dogsPerPage;
@@ -27,11 +24,7 @@ const HomePage = () => {
   // Cambia la página actual
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  useEffect(() => {
-    // Add a console log to check the filtered and sorted dogs array
-    console.log('Filtered and sorted dogs:', filteredDogs);
-  }, [filteredDogs]);
-
+  
   return (
     <div className={styles.homePageContainer}>
       <SearchBar />
