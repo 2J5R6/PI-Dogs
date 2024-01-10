@@ -148,7 +148,7 @@ export const applyFilters = () => {
   return (dispatch, getState) => {
     let { dogs, filterTemperaments, filterOrigin, sortOrder, lifeSpanRange } = getState().dogs;
     let filteredDogs = dogs;
-
+    console.log('Initial dogs:', dogs); 
     // Aplicar filtros de temperamento
     if (filterTemperaments.length) {
       filteredDogs = filteredDogs.filter(dog => {
@@ -181,7 +181,7 @@ export const applyFilters = () => {
         return dogLifeSpan >= minLifeSpan && (!maxLifeSpan || dogLifeSpan <= maxLifeSpan);
       });
     }
-
+    console.log('Filtered dogs (before sorting):', filteredDogs);
     // Aplicar ordenamiento
     if (sortOrder.includes('name')) {
       filteredDogs.sort((a, b) => {
@@ -201,7 +201,7 @@ export const applyFilters = () => {
       });
     }
     
-
+    console.log('Filtered and sorted dogs:', filteredDogs);
     // Actualizar el estado con los perros filtrados
     dispatch({ type: APPLY_FILTERS, payload: filteredDogs });
   };

@@ -50,9 +50,9 @@ const Filters = () => {
   const handleSortChange = (e) => {
     setSortOrder(e.target.value);
     if (e.target.value.includes('name')) {
-      dispatch(sortDogsAlphabetically(e.target.value.includes('asc') ? 'asc' : 'desc'));
+      dispatch(sortDogsAlphabetically(e.target.value.includes('asc') ? 'name_asc' : 'name_desc'));
     } else if (e.target.value.includes('weight')) {
-      dispatch(sortByWeight(e.target.value.includes('asc') ? 'asc' : 'desc'));
+      dispatch(sortByWeight(e.target.value.includes('asc') ? 'weight_asc' : 'desc'));
     }
   };
 
