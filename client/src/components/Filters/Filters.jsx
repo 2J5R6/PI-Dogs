@@ -5,7 +5,7 @@ import {
   filterByOrigin,
   sortByWeight,
   sortDogsAlphabetically,
-  filterByLifeSpan,
+  // filterByLifeSpan,
   resetFiltersAndSort,
   applyFilters
 } from '../../redux/actions/actions';
@@ -18,7 +18,7 @@ const Filters = () => {
   const [selectedTemperaments, setSelectedTemperaments] = useState([]);
   const [selectedOrigin, setSelectedOrigin] = useState('');
   const [sortOrder, setSortOrder] = useState('');
-  const [lifeSpanRange, setLifeSpanRange] = useState('');
+  // const [lifeSpanRange, setLifeSpanRange] = useState('');
 
   const handleApplyFilters = () => {
     dispatch(applyFilters());
@@ -52,21 +52,21 @@ const Filters = () => {
     if (e.target.value.includes('name')) {
       dispatch(sortDogsAlphabetically(e.target.value.includes('asc') ? 'name_asc' : 'name_desc'));
     } else if (e.target.value.includes('weight')) {
-      dispatch(sortByWeight(e.target.value.includes('asc') ? 'weight_asc' : 'desc'));
+      dispatch(sortByWeight(e.target.value.includes('asc') ? 'weight_asc' : 'weight_desc'));
     }
   };
 
-  const handleLifeSpanChange = (e) => {
-    setLifeSpanRange(e.target.value);
-    dispatch(filterByLifeSpan(e.target.value));
-  };
+  // const handleLifeSpanChange = (e) => {
+  //   setLifeSpanRange(e.target.value);
+  //   dispatch(filterByLifeSpan(e.target.value));
+  // };
 
 
   const resetFilters = () => {
     setSelectedTemperaments([]); // Cambiar a un array vacío
     setSelectedOrigin('');
     setSortOrder('');
-    setLifeSpanRange('');
+    // setLifeSpanRange('');
     dispatch(resetFiltersAndSort());
   };
   
@@ -104,7 +104,7 @@ const Filters = () => {
         </select>
       </div>
 
-      {/* Life Span Filter */}
+      {/* Life Span Filter
       <div className={styles.filterItem}>
         <label>Life Span:</label>
         <input
@@ -114,7 +114,7 @@ const Filters = () => {
           placeholder="e.g., 10-12"
           className={styles.filterInput}
         />
-      </div>
+      </div> */}
 
       {/* Sorting Options */}
       <div className={styles.filterItem}>

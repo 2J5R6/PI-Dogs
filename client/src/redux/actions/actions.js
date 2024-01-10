@@ -177,10 +177,17 @@ export const applyFilters = () => {
     if (lifeSpanRange) {
       const [minLifeSpan, maxLifeSpan] = lifeSpanRange.split('-').map(Number);
       filteredDogs = filteredDogs.filter(dog => {
-        const dogLifeSpan = parseInt(dog.life_span.split(' ')[0]);
+        let dogLifeSpan;
+        if (dog.life_span.includes('-')) {
+          const lifeSpanParts = dog.life_span.split(' ')[0].split('-').map(Number);
+          dogLifeSpan = (lifeSpanParts[0] + lifeSpanParts[1]) / 2;
+        } else {
+          dogLifeSpan = parseInt(dog.life_span.split(' ')[0]);
+        }
         return dogLifeSpan >= minLifeSpan && (!maxLifeSpan || dogLifeSpan <= maxLifeSpan);
       });
     }
+
     console.log('Filtered dogs (before sorting):', filteredDogs);
     // Aplicar ordenamiento
     if (sortOrder.includes('name')) {
