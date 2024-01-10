@@ -63,11 +63,12 @@ const Filters = () => {
 
 
   const resetFilters = () => {
-    setSelectedTemperaments([]); // Cambiar a un array vacío
+    setSelectedTemperaments([]); 
     setSelectedOrigin('');
     setSortOrder('');
     // setLifeSpanRange('');
     dispatch(resetFiltersAndSort());
+    dispatch(applyFilters());
   };
   
 

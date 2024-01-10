@@ -147,7 +147,17 @@ export const resetFiltersAndSort = () => {
 export const applyFilters = () => {
   return (dispatch, getState) => {
     let { dogs, filterTemperaments, filterOrigin, sortOrder, lifeSpanRange } = getState().dogs;
+    
+    if (filterTemperaments.length === 0 && !filterOrigin && !sortOrder && !lifeSpanRange) {
+      // En este caso, no aplicar ningún filtro ni ordenamiento y devolver la lista completa
+      dispatch({ type: APPLY_FILTERS, payload: dogs });
+      return;
+    }
+    
     let filteredDogs = dogs;
+
+    
+
     console.log('Initial dogs:', dogs); 
     // Aplicar filtros de temperamento
     if (filterTemperaments.length) {

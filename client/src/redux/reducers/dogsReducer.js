@@ -33,6 +33,7 @@ const initialState = {
   filterOrigin: null,
   sortOrder: '',
   lifeSpanRange: '',
+  originalDogs: [],
 };
 
 // Reductor para operaciones con razas de perros
@@ -41,7 +42,7 @@ const dogsReducer = (state = initialState, action) => {
     case GET_ALL_DOGS_REQUEST:
       return { ...state, loading: true };
     case GET_ALL_DOGS_SUCCESS:
-      return { ...state, loading: false, dogs: action.payload };
+      return { ...state, loading: false, dogs: action.payload, originalDogs: [...action.payload] };
     case GET_ALL_DOGS_FAILURE:
       return { ...state, loading: false, error: action.payload };
     case CREATE_DOG_REQUEST:
@@ -92,6 +93,7 @@ const dogsReducer = (state = initialState, action) => {
       // Restablece los filtros y ordenamientos a su estado inicial
       return {
           ...state,
+          dogs: [...state.originalDogs],
           filteredDogs: [],
           filterTemperaments: [],
           filterOrigin: null,
