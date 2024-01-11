@@ -23,12 +23,14 @@ const App = () => {
   return (
     <>
       {showNavBar && <NavBar />}
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/dog/:id" element={<DetailPage />} />
-        <Route path="/create" element={<FormPage />} />
-      </Routes>
+      <div className="contentContainer">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/dog/:id" element={<DetailPage />} />
+          <Route path="/create" element={<FormPage />} />
+        </Routes>
+        </div>
     </>
   );
 };

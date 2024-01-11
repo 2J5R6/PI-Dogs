@@ -1,11 +1,24 @@
 .homePageContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
+  box-sizing: border-box; /* Nuevo */
+  overflow-x: hidden;
+}
+
+.filtersContainer {
+  position: fixed;
+  top: 50px; /* Ajusta este valor según la altura de SearchBar */
+  z-index: 10;
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  padding: 0 20px;
 }
 
 .contentArea {
+  padding-top: 150px; /* Ajusta este valor para dar espacio a SearchBar y Filters */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,6 +26,7 @@
   flex-grow: 1;
   width: 100%;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .cardsContainer {
@@ -22,11 +36,16 @@
   width: 100%;
   justify-content: center;
   margin-bottom: 30px; /* Espacio antes de la paginación */
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .cardsContainer {
     grid-template-columns: 1fr;
     gap: 15px;
+  }
+
+  .searchBarContainer, .filtersContainer {
+    padding: 0 5px; /* Espacio horizontal más pequeño */
   }
 }

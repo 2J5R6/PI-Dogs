@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getDogByName, getDogCardById } from '../../redux/actions/actions'; 
 import styles from './SearchBar.module.css';
+import pawPrintIcon from '../../assets/SearchPaw.png';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +26,9 @@ const SearchBar = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         className={styles.searchInput}
       />
-      <button type="submit" className={styles.searchButton}>Search</button>
+      <button type="submit" className={styles.searchButton}>
+        <img src={pawPrintIcon} alt="Search" className={styles.searchIcon} />
+      </button>
     </form>
   );
 };

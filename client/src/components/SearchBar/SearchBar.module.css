@@ -1,26 +1,56 @@
-
 .searchForm {
   display: flex;
+  align-items: center; /* Esto alinea verticalmente el botón con el campo de búsqueda */
   margin: 20px;
 }
+
 
 .searchInput {
   flex-grow: 1;
   padding: 10px;
   margin-right: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid #a8a087; /* Color más suave */
+  border-radius: 20px; /* Bordes más redondeados */
+  transition: all 0.3s ease; /* Transición suave */
+  background-color: #f3f3f3; /* Fondo claro */
+}
+
+.searchInput:focus {
+  outline: none;
+  background-color: white; /* Cambio de color al enfocar */
+  box-shadow: 0 0 8px rgba(0,0,0,0.2); /* Sombra sutil */
 }
 
 .searchButton {
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  width: 80px; /* Ajusta al tamaño que necesites */
+  height: 45px; /* Igual al ancho para hacerlo redondo */
+  padding: 0; /* Elimina el padding para que la imagen ocupe todo el botón */
+  border-radius: 15%; /* Hace el botón completamente redondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none; /* Elimina el borde si es necesario */
+  overflow: hidden; /* Evita que la imagen se desborde */
 }
 
+.searchIcon {
+  align-items: center;
+  width: 270%; /* La imagen ocupa todo el ancho del botón */
+  height: 215%; /* La imagen ocupa toda la altura del botón */
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio sin distorsionarse */
+}
+
+
 .searchButton:hover {
-  background-color: #555;
+  background-color: #9c786c; /* Cambio de color al pasar el cursor */
+  box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Agrega una sombra para resaltar */
+}
+
+
+@media (max-width: 768px) {
+  .searchButton {
+    width: 40px; /* Tamaño más pequeño para pantallas estrechas */
+    height: 40px;
+  }
+
 }

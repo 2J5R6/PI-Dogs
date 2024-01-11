@@ -130,8 +130,8 @@ const Filters = () => {
       </div>
 
       {/* Reset Filters Button */}
-      <button onClick={resetFilters}>Reset Filters</button>
-      <button onClick={handleApplyFilters}>Apply Filters</button>
+      <button onClick={resetFilters} className={`${styles.button} ${styles.resetButton}`}>Reset Filters</button>
+      <button onClick={handleApplyFilters} className={`${styles.button} ${styles.applyButton}`}>Apply Filters</button>
     </div>
   );
 };
