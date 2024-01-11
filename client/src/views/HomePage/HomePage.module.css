@@ -10,7 +10,7 @@
 .filtersContainer {
   position: fixed;
   top: 50px; /* Ajusta este valor según la altura de SearchBar */
-  z-index: 10;
+  z-index: 100;
   background-color: #fff;
   width: 100%;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
